@@ -1,6 +1,8 @@
+#include "spaceship.h"
+
 typedef struct{
 	Spaceship spaceship;
-	Enemy enemy[255];
+	// Ajouter les enemy des qu'il sera créé Enemy enemy[255];
 	int bulletX[255];
 	int bulletY[255];
 }Game;
