@@ -8,6 +8,8 @@
 #include "moteur/param.h"
 #include "moteur/game.h"
 
+static char nomProfil[20];
+
 void menuPrint(int menu){
 	char message[255];
 	if(menu==1){
@@ -58,6 +60,22 @@ void menuPrint(int menu){
 		stringcpy(message, "Retour");
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()/2-130);
 	}
+	if(menu == 3)
+	{
+		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB); 
+		libereDonneesImageRGB(&image);
+		stringcpy(message, "EZ-Type");
+		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*3/4);
+		stringcpy(message, "Nom du profil : ");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30), hauteurFenetre()*0.6);
+		stringcpy(message, nomProfil);
+		afficheChaine(message, 30, largeurFenetre()/2, hauteurFenetre()*0.6);
+		stringcpy(message, "valider");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
+		stringcpy(message, "retour");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
+	}
 }
 
 void menuClick(int *menu){
@@ -73,8 +91,10 @@ void menuClick(int *menu){
 		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2-90 && ordonneeSouris()<hauteurFenetre()/2-40)
 			*menu=2;
 		stringcpy(message, "Profil");
-		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2-140 && ordonneeSouris()<hauteurFenetre()/2-90)
-			printf("Menu profil\n");//menuPrint(3);
+		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2-140 && ordonneeSouris()<hauteurFenetre()/2-90){
+			*menu = 3;
+			nomProfil[0] = '\0';
+		}
 		stringcpy(message, "Quitter");
 		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2-190 && ordonneeSouris()<hauteurFenetre()/2-140)
 			termineBoucleEvenements();
@@ -93,4 +113,28 @@ void menuClick(int *menu){
 		if(abscisseSouris()>largeurFenetre()/2+10 && abscisseSouris()<largeurFenetre()/2+10+tailleChaine(message, 30) && ordonneeSouris()>hauteurFenetre()/2-40 && ordonneeSouris()<hauteurFenetre()/2+10)
 			changeSound();
 	}
+	if(*menu == 3){
+		stringcpy(message, "valider");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()/2 + 40){
+			*menu = 1;
+		}
+		stringcpy(message, "retour");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.23 && ordonneeSouris() < hauteurFenetre()*0.23 + 40){
+			*menu = 1;
+		}
+	}
+}
+
+void saisieClavier(char caractereClavier){
+	int i = 0;
+	while(nomProfil[i] != '\0'){
+		i++;
+	}
+	if(i <= 19){
+		nomProfil[i] = caractereClavier;
+		nomProfil[i+1] = '\0';
+	}
+	if(caractereClavier == 127 || caractereClavier == 8){
+		nomProfil[i-1] = '\0';
+	}	
 }
