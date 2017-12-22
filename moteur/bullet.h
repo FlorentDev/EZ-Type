@@ -3,9 +3,8 @@
 	#include "entity.h"
 #endif
 
-typedef struct enemy {
+typedef struct bullet {
 	Position pos;
 	Speed speed;
-	int life;
-	struct enemy *nextEnemy; 
-} Enemy;
+	struct bullet *nextBullet;
+} Bullet; 
