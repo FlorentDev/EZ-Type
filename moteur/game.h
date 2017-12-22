@@ -1,11 +1,11 @@
 #include "spaceship.h"
+#include "enemy.h"
 
-typedef struct{
+typedef struct {
 	Spaceship spaceship;
-	// Ajouter les enemy des qu'il sera créé Enemy enemy[255];
-	int bulletX[255];
-	int bulletY[255];
+	Enemy *enemy;
 }Game;
+
 
 void startGame(int begin);
 

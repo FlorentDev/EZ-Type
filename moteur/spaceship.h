@@ -1,17 +1,13 @@
+#ifndef ENTITY_H
+	#define ENTITY_H
+	#include "entity.h"
+#endif
+
 typedef struct {
-	float x;
-	float y;
+	Position pos;
 	char skin[20];
 	int shield;
 	int life;
 	int shotSpeed;
 	int shotNb;
 } Spaceship;
-
-void moveUp(Spaceship* spaceship);
-
-void moveDown(Spaceship* spaceship);
-
-void moveLeft(Spaceship* spaceship);
-
-void moveRight(Spaceship* spaceship);

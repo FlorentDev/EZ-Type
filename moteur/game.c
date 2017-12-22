@@ -1,17 +1,9 @@
 #include <stdlib.h>
 #include "../GfxLib/GfxLib.h"
 #include "param.h"
-#include "spaceship.h"
-#include "enemy.h"
-
-typedef struct{
-	Spaceship spaceship;
-	Enemy *enemy;
-	Bullet *bullet;
-}Game;
+#include "game.h"
 
 static int gamestate = 0;
-
 static Game game;
 
 Game initGame(void);
@@ -31,14 +23,13 @@ Game gameEvent(void){
 
 Game initGame(void){
 	Game game;
-	game.spaceship.position.x = largeurFenetre()*0.20;
-	game.spaceship.position.y = hauteurFenetre()/2;
+	game.spaceship.pos.x = largeurFenetre()*0.20;
+	game.spaceship.pos.y = hauteurFenetre()/2;
 	stringcpy(game.spaceship.skin, vaisseau(0));
 	game.spaceship.shield = 0;
 	game.spaceship.life = 100;
 	game.spaceship.shotSpeed = 5;
 	game.spaceship.shotNb = 1;
 	game.enemy = NULL;
-	game.bullet = NULL;
 	return game;
 }

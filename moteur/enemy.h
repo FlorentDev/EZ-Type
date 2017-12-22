@@ -1,12 +1,9 @@
-typedef struct enemy{
-	int posX;
-	int posY;
-	struct enemy *nextEnemy;
-}Enemy;
+#ifndef ENTITY_H
+	#define ENTITY_H
+	#include "entity.h"
+#endif
 
-typedef struct bullet{
-	int posX;
-	int posY;
-	struct bullet *nextBullet;
-}Bullet;
-
+typedef struct {
+	Position pos;
+	int life;
+} Enemy;
