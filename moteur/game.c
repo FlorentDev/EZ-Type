@@ -31,8 +31,8 @@ Game gameEvent(void){
 
 Game initGame(void){
 	Game game;
-	game.spaceship.x = largeurFenetre()*0.20;
-	game.spaceship.y = hauteurFenetre()/2;
+	game.spaceship.position.x = largeurFenetre()*0.20;
+	game.spaceship.position.y = hauteurFenetre()/2;
 	stringcpy(game.spaceship.skin, vaisseau(0));
 	game.spaceship.shield = 0;
 	game.spaceship.life = 100;
