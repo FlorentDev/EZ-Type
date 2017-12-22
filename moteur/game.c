@@ -8,35 +8,35 @@ typedef struct{
 	Bullet *bullet;
 }Game;
 
-static int game = 0;
+static int gameState = 0;
 
-static Game party;
+static Game game;
 
 Game initGame(void);
 
 void startGame(int begin){
-	party = initGame();
-	game = begin;
+	game = initGame();
+	gameState= begin;
 }
 
 int gameState(void){
-	return game;
+	return gameState;
 }
 
 Game gameEvent(void){
-	return party;
+	return game;
 }
 
 Game initGame(void){
-	Game party;
-	party.spaceship.x = largeurFenetre()*0.20;
-	party.spaceship.y = hauteurFenetre()/2;
-	stringcpy(party.spaceship.skin, vaisseau(0));
-	party.spaceship.shield = 0;
-	party.spaceship.life = 100;
-	party.spaceship.shotSpeed = 5;
-	party.spaceship.shotNb = 1;
-	party.enemy = NULL;
-	party.bullet = NULL;
-	return party;
+	Game game;
+	game.spaceship.x = largeurFenetre()*0.20;
+	game.spaceship.y = hauteurFenetre()/2;
+	stringcpy(game.spaceship.skin, vaisseau(0));
+	game.spaceship.shield = 0;
+	game.spaceship.life = 100;
+	game.spaceship.shotSpeed = 5;
+	game.spaceship.shotNb = 1;
+	game.enemy = NULL;
+	game.bullet = NULL;
+	return game;
 }
