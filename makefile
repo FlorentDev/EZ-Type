@@ -1,10 +1,10 @@
 all: EZ-Type
 
-EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/enemy.o GfxLib/libisentlib.a
+EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/entity.o moteur/enemy.o GfxLib/libisentlib.a
 #	Compilation linux:
-#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/enemy.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
+#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/enemy.o moteur/entity.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
 #	Compilation Mac:
-	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/enemy.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
+	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/enemy.o moteur/entity.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
 
 EZ-Type.o: EZ-Type.c moteur/param.h moteur/displayGame.h GfxLib/GfxLib.h GfxLib/BmpLib.h menu.h
 	gcc -c EZ-Type.c -Wall -O1
@@ -15,7 +15,7 @@ menu.o: menu.c moteur/param.h moteur/game.h GfxLib/GfxLib.h GfxLib/BmpLib.h
 moteur/param.o: moteur/param.c
 	gcc -o moteur/param.o -c moteur/param.c -Wall -O1
 
-moteur/game.o: moteur/game.c moteur/param.h moteur/spaceship.h moteur/enemy.h GfxLib/GfxLib.h
+moteur/game.o: moteur/game.c moteur/param.h moteur/spaceship.h moteur/enemy.h GfxLib/GfxLib.h moteur/enemy.h moteur/entity.h
 	gcc -o moteur/game.o -c moteur/game.c -Wall -O1
 
 moteur/spaceship.o: moteur/spaceship.c
@@ -26,6 +26,9 @@ moteur/displayGame.o: moteur/displayGame.c
 
 moteur/enemy.o: moteur/enemy.c
 	gcc -o moteur/enemy.o -c moteur/enemy.c -Wall -O1
+
+moteur/entity.o: moteur/entity.c
+	gcc -o moteur/entity.o -c moteur/entity.c -Wall -O1
 
 clean:
 	rm EZ-Type.o menu.o moteur/param.o
