@@ -10,3 +10,5 @@ typedef struct {
 void startGame(int begin);
 
 int gameState(void);
+
+Game gameEvent(void);
