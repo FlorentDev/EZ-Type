@@ -82,8 +82,10 @@ void menuClick(int *menu){
 	char message[255];
 	if(*menu==1){
 		stringcpy(message, "Jouer");
-		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2+10 && ordonneeSouris()<hauteurFenetre()/2+60)
+		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2+10 && ordonneeSouris()<hauteurFenetre()/2+60){
+			*menu=0;
 			startGame(1);
+		}
 		stringcpy(message, "Multijoueur");
 		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2-40 && ordonneeSouris()<hauteurFenetre()/2+10)
 			printf("Partie multijoueur lancée\n");//startMultiGame();
