@@ -5,5 +5,6 @@
 
 typedef struct bullet {
 	Position pos;
+	Speed speed;
 	struct bullet *nextBullet;
 } Bullet; 

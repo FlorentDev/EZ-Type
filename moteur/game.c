@@ -1,15 +1,22 @@
+#ifndef GAME_H
+	#define GAME_H
+	#include "game.h"
+#endif
+
 #include <stdlib.h>
-#include "../GfxLib/GfxLib.h"
+#ifndef GFXLIB_H
+	#define GFXLIB_H
+	#include "../GfxLib/GfxLib.h"
+#endif
 #include "param.h"
-#include "game.h"
 
 static int gamestate = 0;
-static Game game;
+static Game *game;
 
 Game initGame(void);
 
 void startGame(int begin){
-	game = initGame();
+	*game = initGame();
 	gamestate = begin;
 }
 
@@ -17,7 +24,7 @@ int gameState(void){
 	return gamestate;
 }
 
-Game gameEvent(void){
+Game* gameEvent(void){
 	return game;
 }
 

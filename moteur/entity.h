@@ -3,10 +3,15 @@ typedef struct {
 	int y;
 } Position;
 
-void moveUp(Position* pos, int speed);
+typedef struct {
+	int speedX;
+	int speedY;
+} Speed;
 
-void moveDown(Position* pos, int speed);
+void moveUp(Position* pos, Speed speed);
 
-void moveLeft(Position* pos, int speed);
+void moveDown(Position* pos, Speed speed);
 
-void moveRight(Position* pos, int speed);
+void moveLeft(Position* pos, Speed speed);
+
+void moveRight(Position* pos, Speed speed);

@@ -5,6 +5,7 @@
 
 typedef struct enemy {
 	Position pos;
+	Speed speed;
 	int life;
 	struct enemy *nextEnemy; 
 } Enemy;

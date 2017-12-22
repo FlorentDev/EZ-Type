@@ -5,6 +5,7 @@
 
 typedef struct {
 	Position pos;
+	Speed speed;
 	char skin[20];
 	int shield;
 	int life;
