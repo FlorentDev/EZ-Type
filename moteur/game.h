@@ -1,9 +1,11 @@
 #include "spaceship.h"
 #include "enemy.h"
+#include "bullet.h"
 
 typedef struct {
 	Spaceship spaceship;
-	Enemy *enemy;
+	Enemy *enemies;
+	Bullet *bullets;
 }Game;
 
 

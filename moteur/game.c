@@ -30,6 +30,7 @@ Game initGame(void){
 	game.spaceship.life = 100;
 	game.spaceship.shotSpeed = 5;
 	game.spaceship.shotNb = 1;
-	game.enemy = NULL;
+	game.enemies = NULL;
+	game.bullets = NULL;
 	return game;
 }
