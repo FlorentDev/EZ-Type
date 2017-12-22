@@ -4,9 +4,8 @@
 
 typedef struct{
 	Spaceship spaceship;
-	// A ajouter des qu'il sera creer Enemy enemy[255];
-	int bulletX[255];
-	int bulletY[255];
+	Enemy *enemy;
+	Bullet *bullet;
 }Game;
 
 static int game = 0;
@@ -37,5 +36,7 @@ Game initGame(void){
 	party.spaceship.life = 100;
 	party.spaceship.shotSpeed = 5;
 	party.spaceship.shotNb = 1;
+	party.enemy = NULL;
+	party.bullet = NULL;
 	return party;
 }
