@@ -3,7 +3,8 @@
 	#include "entity.h"
 #endif
 
-typedef struct {
+typedef struct enemy {
 	Position pos;
 	int life;
+	struct enemy *nextEnemy; 
 } Enemy;
