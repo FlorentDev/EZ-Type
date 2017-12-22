@@ -4,10 +4,7 @@
 #endif
 
 #include <stdlib.h>
-#ifndef GFXLIB_H
-	#define GFXLIB_H
-	#include "../GfxLib/GfxLib.h"
-#endif
+#include "../GfxLib/GfxLib.h"
 #include "param.h"
 
 static int gamestate = 0;
