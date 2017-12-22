@@ -7,5 +7,5 @@ typedef struct enemy{
 typedef struct bullet{
 	int posX;
 	int posY;
-	struct bullet nextBullet
+	struct bullet *nextBullet;
 }Bullet;
