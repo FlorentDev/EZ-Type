@@ -8,7 +8,8 @@
 #include "param.h"
 
 static int gamestate = 0;
-static Game *game;
+static Game party;
+static Game *game = &party;
 
 Game initGame(void);
 
