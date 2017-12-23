@@ -4,8 +4,11 @@
 #include "GfxLib/BmpLib.h"
 // Librairie perso
 #include "menu.h"
-
-#include "moteur/game.h"
+#include "moteur/inputGame.h"
+#ifndef GAME_H
+	#include "moteur/game.h"
+	#define GAME_H
+#endif
 #include "moteur/displayGame.h"
 
 void gestionEvenement(EvenementGfx event);
@@ -39,6 +42,8 @@ void gestionEvenement(EvenementGfx event){
 		case Clavier:
 			if(menu == 3)
 				saisieClavier(caractereClavier());
+			if(gameState())
+				keyboardGame(gameEvent());
 			if(caractereClavier()=='F' || caractereClavier()=='f'){
 				pleinEcran=!pleinEcran;
 				if(pleinEcran)
