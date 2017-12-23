@@ -3,16 +3,11 @@
 	#include "entity.h"
 #endif
 
-#ifndef GAME_H
-	#define GAME_H
-	#include "game.h"
-#endif
+#include "../GfxLib/GfxLib.h"
 
-#ifndef GFXLIB_H
-	#define GFXLIB_H
-	#include "../GfxLib/GfxLib.h"
-#endif
+#include "game.h"
 #include "../GfxLib/BmpLib.h"
+
 
 void keyboardGame(Game *game) {
 	switch(caractereClavier()) {
