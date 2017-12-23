@@ -30,6 +30,8 @@ Game initGame(void){
 	Game game;
 	game.spaceship.pos.x = largeurFenetre()*0.20;
 	game.spaceship.pos.y = hauteurFenetre()/2;
+	game.spaceship.speed.speedX = 3;
+	game.spaceship.speed.speedY = 3;
 	stringcpy(game.spaceship.skin, vaisseau(0));
 	game.spaceship.shield = 0;
 	game.spaceship.life = 100;
