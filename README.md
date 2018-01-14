@@ -1,4 +1,4 @@
-# Welcome on the EZ-Type project
+# Welcome to the EZ-Type project
 
 ## Presentation :
 
