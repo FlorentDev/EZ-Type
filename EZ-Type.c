@@ -1,6 +1,9 @@
 #include <stdio.h>
 // Librairie GfxLib
-#include "GfxLib/GfxLib.h"
+#ifndef GFXLIB_H
+	#include "GfxLib/GfxLib.h"
+	#define GFXLIB_H
+#endif
 #include "GfxLib/BmpLib.h"
 // Librairie perso
 #include "menu.h"
@@ -10,6 +13,7 @@
 	#define GAME_H
 #endif
 #include "moteur/displayGame.h"
+#include "moteur/updateGame.h"
 
 void gestionEvenement(EvenementGfx event);
 
@@ -30,6 +34,7 @@ void gestionEvenement(EvenementGfx event){
 			demandeTemporisation(20);
 			break;
 		case Temporisation:
+			updateGame(gameEvent());
 			rafraichisFenetre();
 			break;
 		case Affichage:
@@ -38,6 +43,10 @@ void gestionEvenement(EvenementGfx event){
 				menuPrint(menu);
 			if(gameState())
 				displayGame();
+			break;
+		case ClavierRelache:
+			//if(gameState())
+				//keyboardGame(gameEvent());
 			break;
 		case Clavier:
 			if(menu == 3)

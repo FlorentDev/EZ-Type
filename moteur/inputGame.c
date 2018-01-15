@@ -1,6 +1,6 @@
 #ifndef ENTITY_H
-	#define ENTITY_H
 	#include "entity.h"
+	#define ENTITY_H
 #endif
 
 #include "../GfxLib/GfxLib.h"
@@ -28,6 +28,7 @@ void keyboardGame(Game *game) {
 			moveRight(&game->spaceship.pos, game->spaceship.speed);
 			break;
 		case ' ':
+			insertQueue(&game->bullets, createBullet(game->spaceship.pos.x, game->spaceship.pos.y, 1));
 			break;
 	}
 } 

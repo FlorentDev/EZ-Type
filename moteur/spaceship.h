@@ -1,6 +1,6 @@
 #ifndef ENTITY_H
-	#define ENTITY_H
 	#include "entity.h"
+	#define ENTITY_H
 #endif
 
 typedef struct {
