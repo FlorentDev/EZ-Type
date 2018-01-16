@@ -9,6 +9,7 @@
 #include "moteur/game.h"
 
 static char nomProfil[20];
+static char array_score[20];
 
 void menuPrint(int menu){
 	char message[255];
@@ -102,16 +103,47 @@ void menuPrint(int menu){
 		stringcpy(message, "retour");
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
 	}
-
+	if(menu == 6){
+		DonneesImageRGB *image = lisBMPRGB("Images/game_over_EZ_Type.bmp"); //Menu game over
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB); 
+		libereDonneesImageRGB(&image);
+		stringcpy(message, "Nouvelle partie");
+		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
+		stringcpy(message, "Retour au menu principal");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30), hauteurFenetre()*0.25);
+		stringcpy(message, "Score : ");
+		afficheChaine(message, 30, largeurFenetre()*0.2, hauteurFenetre()*0.45);
+		stringcpy(message, "Score : "); //affiche le score numérique
+		afficheChaine(message, 30, largeurFenetre()*0.2 + tailleChaine("Score : ", 30), hauteurFenetre()*0.45);
+		sprintf(array_score, "%d", gameEvent()->score); //affichage du score
+	}
+	if(menu == 7){ //Menu accessible si le profil sélectionné avait déjà une partie en cours, la nouvelle partie se lance directement sinon
+		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB); 
+		libereDonneesImageRGB(&image);
+		stringcpy(message, "EZ-Type");
+		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*3/4);
+		stringcpy(message, "Continuer");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30), hauteurFenetre()*0.6);
+		stringcpy(message, "Nouvelle partie");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
+		stringcpy(message, "retour");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
+	}	
 }
-
+;
 void menuClick(int *menu){
 	char message[255];
 	if(*menu==1){
 		stringcpy(message, "Jouer");
 		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2+10 && ordonneeSouris()<hauteurFenetre()/2+60){
 			*menu=0;
-			startGame(1);
+			if(profil(0, NULL, 0)){
+				*menu = 7;
+			}
+			else{
+				startGame(1);
+			}
 		}
 		stringcpy(message, "Multijoueur");
 		if(abscisseSouris()>largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris()<largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris()>hauteurFenetre()/2-40 && ordonneeSouris()<hauteurFenetre()/2+10)
@@ -181,6 +213,31 @@ void menuClick(int *menu){
 			*menu = 1;
 		}
 	}
+	if(*menu == 6){
+		stringcpy(message, "Nouvelle partie");
+		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){
+			*menu=0;
+			startGame(1); //Le score n'est pas remis à zéro dans dans cette fonction
+			gameEvent()->score = 0; //remise du score à zéro
+		}
+		stringcpy(message, "Retour au menu principal");
+		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25 && ordonneeSouris() < hauteurFenetre()*0.25 + 40){
+			*menu = 1;
+		}
+	}
+	if(*menu == 7){  //menu si partie déjà en cours sur le profil sélectionné
+		stringcpy(message, "Continuer");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) && ordonneeSouris() > hauteurFenetre()*0.6 && ordonneeSouris() < hauteurFenetre()*0.6 + 40){
+			*menu = 0;
+			startGame(1); //terminer la reprise du jeu en fonction du score
+		}
+		stringcpy(message, "Nouvelle partie");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){
+			*menu = 0;
+			startGame(1);
+			gameEvent()->score = profil(0, NULL, 0); 
+		}
+	}
 }
 
 void saisieClavier(char caractereClavier){
@@ -196,3 +253,4 @@ void saisieClavier(char caractereClavier){
 		nomProfil[i-1] = '\0';
 	}	
 }
+
