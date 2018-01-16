@@ -1,10 +1,10 @@
 all: EZ-Type
 
-EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o GfxLib/libisentlib.a
+EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o GfxLib/libisentlib.a
 #	Compilation linux:
 	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
 #	Compilation Mac:
-#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/spaceship.o moteur/enemy.o moteur/entity.o moteur/inputGame.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
+#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
 
 EZ-Type.o: EZ-Type.c moteur/param.h moteur/displayGame.h moteur/updateGame.h moteur/inputGame.h GfxLib/GfxLib.h GfxLib/BmpLib.h menu.h
 	gcc -c EZ-Type.c -Wall -O1
@@ -29,6 +29,9 @@ moteur/entity.o: moteur/entity.c
 
 moteur/inputGame.o: moteur/inputGame.c
 	gcc -o moteur/inputGame.o -c moteur/inputGame.c -Wall -O1
+
+Sauvegarde/sauvegarde.o: Sauvegarde/sauvegarde.c
+	gcc -o Sauvegarde/sauvegarde.o -c Sauvegarde/sauvegarde.c -Wall -O1
 
 clean:
 	rm -f *~ *.o ./moteur/*~ ./moteur/*.o 
