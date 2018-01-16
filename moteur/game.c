@@ -1,4 +1,4 @@
-#ifndef GAME_H
+ #ifndef GAME_H
 	#include "game.h"
 	#define GAME_H
 #endif
@@ -24,12 +24,20 @@ void startGame(int begin){
 	gamestate = begin;
 }
 
+void gamePause(int pause){
+	gamestate = pause;
+}
+
 int gameState(void){
 	return gamestate;
 }
 
 Game* gameEvent(void){
 	return game;
+}
+
+void endGame(void){
+	gamestate = 2;
 }
 
 Game initGame(void){

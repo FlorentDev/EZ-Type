@@ -4,13 +4,19 @@
 
 typedef struct {
 	Spaceship spaceship;
-	Enemy* enemies;
-	Bullet* bullets;
+	Enemy *enemies;
+	Bullet *bullets;
+	int score;
 }Game;
+
 
 void startGame(int begin);
 
 int gameState(void);
+
+void gamePause(int pause);
+
+void endGame(void);
 
 Game *gameEvent(void);
 
