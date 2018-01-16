@@ -48,12 +48,8 @@ void gestionEvenement(EvenementGfx event){
 			if(gameState())
 				displayGame();
 			break;
-		case ClavierRelache:
-			//if(gameState())
-			//keyboardGame(gameEvent());
-		break;
 		case Clavier:
-			if(menu == 3 || menu == 5)
+			if(menu == 3 || menu == 5)
 				saisieClavier(caractereClavier());
 			if(gameState())
 				keyboardGame(gameEvent());
