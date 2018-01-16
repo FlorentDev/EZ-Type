@@ -27,6 +27,10 @@ int main(int argc, char *argv[]){
 void gestionEvenement(EvenementGfx event){
 	static bool pleinEcran = false;
 	static int menu = 0;
+	if(menu==0 && gameState()==0) // Prise en charge de la pause
+		menu = 4;
+	if(gameState()==2)
+		menu = 6;
 
 	switch(event){
 		case Initialisation:
@@ -46,10 +50,10 @@ void gestionEvenement(EvenementGfx event){
 			break;
 		case ClavierRelache:
 			//if(gameState())
-				//keyboardGame(gameEvent());
-			break;
+			//keyboardGame(gameEvent());
+		break;
 		case Clavier:
-			if(menu == 3)
+			if(menu == 3 || menu == 5)
 				saisieClavier(caractereClavier());
 			if(gameState())
 				keyboardGame(gameEvent());
