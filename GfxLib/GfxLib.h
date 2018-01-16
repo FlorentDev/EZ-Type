@@ -83,7 +83,7 @@
    mettre en place simplement un environnement graphique portable */
 
 
-typedef enum {Inactivite, Affichage, Clavier, ClavierRelache, ClavierSpecial, Souris, BoutonSouris, Initialisation, Redimensionnement, Temporisation}
+typedef enum {Inactivite, Affichage, Clavier, ClavierSpecial, Souris, BoutonSouris, Initialisation, Redimensionnement, Temporisation}
 	EvenementGfx;
 typedef enum {GaucheAppuye, GaucheRelache, DroiteAppuye, DroiteRelache}
 	EtatBoutonSouris;
