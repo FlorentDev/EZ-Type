@@ -12,7 +12,6 @@ static char nomProfil[20];
 
 void menuPrint(int menu){
 	char message[255];
-	
 	if(menu==1){
 		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
@@ -77,6 +76,33 @@ void menuPrint(int menu){
 		stringcpy(message, "retour");
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
 	}
+	if(menu == 4){
+		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB); 
+		libereDonneesImageRGB(&image);
+		stringcpy(message, "PAUSE");
+		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*3/4);
+		stringcpy(message, "Reprendre");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.5);
+		stringcpy(message, "Enregistrer et quitter");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.35);
+	}
+	if(menu == 5){
+		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB); 
+		libereDonneesImageRGB(&image);
+		stringcpy(message, "EZ-Type");
+		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*3/4);
+		stringcpy(message, "Nom du profil : ");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30), hauteurFenetre()*0.6);
+		stringcpy(message, nomProfil);
+		afficheChaine(message, 30, largeurFenetre()/2, hauteurFenetre()*0.6);
+		stringcpy(message, "valider");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
+		stringcpy(message, "retour");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
+	}
+
 }
 
 void menuClick(int *menu){
@@ -119,6 +145,35 @@ void menuClick(int *menu){
 	if(*menu == 3){
 		stringcpy(message, "valider");
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()/2 + 40){
+			profil(1, nomProfil, 0);
+			*menu = 1;
+		}
+		stringcpy(message, "retour");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.23 && ordonneeSouris() < hauteurFenetre()*0.23 + 40){
+			*menu = 1;
+		}
+	}
+	if(*menu == 4){
+		stringcpy(message, "Reprendre");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.5 && ordonneeSouris() < hauteurFenetre()*0.5 + 40){
+			*menu = 0;
+			gamePause(1);
+		}
+		stringcpy(message, "Enregistrer et quitter");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.35 && ordonneeSouris() < hauteurFenetre()*0.35 + 40){
+			if(profil(2, NULL, gameEvent()->score)){
+				*menu = 5;
+
+			}
+			else
+				*menu = 1;
+		}
+	}
+	if(*menu == 5){
+		stringcpy(message, "valider");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()/2 + 40){
+			profil(1, nomProfil, 0);
+			profil(2, NULL, gameEvent()->score);
 			*menu = 1;
 		}
 		stringcpy(message, "retour");
