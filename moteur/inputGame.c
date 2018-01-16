@@ -30,5 +30,7 @@ void keyboardGame(Game *game) {
 		case ' ':
 			insertQueue(&game->bullets, createBullet(game->spaceship.pos.x, game->spaceship.pos.y, 1));
 			break;
+		case 27:
+			gamePause(0);
 	}
 } 
