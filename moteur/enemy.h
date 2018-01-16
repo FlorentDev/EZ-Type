@@ -8,6 +8,7 @@
 typedef struct enemy {
 	Position pos;
 	Speed speed;
+	Hitbox hitbox;
 	int life;
 	DonneesImageRGB* image;
 	struct enemy *nextEnemy; 

@@ -43,28 +43,36 @@ void endGame(void){
 Game initGame(void){
 	srand(time(NULL));
 	Game game;
+	//game.score = 0;
 	game.spaceship.pos.x = largeurFenetre()*0.20;
 	game.spaceship.pos.y = hauteurFenetre()/2;
-	game.spaceship.speed.speedX = 3;
-	game.spaceship.speed.speedY = 3;
+	game.spaceship.speed.speedX = 15;
+	game.spaceship.speed.speedY = 15;
 	stringcpy(game.spaceship.skin, vaisseau(0));
 	game.spaceship.shield = 0;
 	game.spaceship.life = 100;
 	game.spaceship.shotSpeed = 5;
 	game.spaceship.shotNb = 1;
+	game.spaceship.image = lisBMPRGB("./Images/ship.bmp");
+	game.spaceship.hitbox.pos = game.spaceship.pos;
+	game.spaceship.hitbox.width = game.spaceship.image->largeurImage;
+	game.spaceship.hitbox.height = game.spaceship.image->hauteurImage;
 	game.bullets = NULL;
 	game.enemies = NULL;
 	return game;
 }
 
-Enemy* createEnemy() {
+Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
-	newEnemy->pos.x = 50;
-	newEnemy->pos.y = 50;
+	newEnemy->pos.x = x;
+	newEnemy->pos.y = y + rand()%500-250;
 	newEnemy->speed.speedX = 1;
-	newEnemy->speed.speedY = 1;
+	newEnemy->speed.speedY = 1;	
 	newEnemy->life = 100;
 	newEnemy->image = lisBMPRGB("./Images/ship.bmp");
+	newEnemy->hitbox.pos = newEnemy->pos;
+	newEnemy->hitbox.width = newEnemy->image->largeurImage;
+	newEnemy->hitbox.height = newEnemy->image->hauteurImage;
 	newEnemy->nextEnemy = NULL;	
 	return newEnemy;
 }
@@ -74,8 +82,11 @@ Bullet* createBullet(int x, int y, int dir) {
 	newBullet->pos.x = x;
 	newBullet->pos.y = y;
 	newBullet->speed.speedX = dir*15;
-	newBullet->speed.speedY = (rand()-RAND_MAX/2 > 0 ? 1 : -1) * (dir*5 + ((float) rand())/RAND_MAX*25.0);
-	newBullet->image = lisBMPRGB("./Images/ship.bmp");
+	newBullet->speed.speedY = (rand()%2 == 0 ? 1 : -1) * rand()%3;
+	newBullet->image = lisBMPRGB("./Images/sprite_bullet.bmp");
+	newBullet->hitbox.pos = newBullet->pos;
+	newBullet->hitbox.width = newBullet->image->largeurImage;
+	newBullet->hitbox.height = newBullet->image->hauteurImage;
 	newBullet->nextBullet = NULL;
 	return newBullet;
 }
@@ -96,7 +107,7 @@ Enemy* getLastEnemy(Enemy* list) {
 	return buffer;
 }
 
-void insertQueue(Bullet** list, Bullet* maillon) {
+void insertQueueBullet(Bullet** list, Bullet* maillon) {
 	if(*list == NULL) {
 		*list = maillon;
 	} else {
@@ -104,14 +115,74 @@ void insertQueue(Bullet** list, Bullet* maillon) {
 	}
 }
 
+void insertQueueEnemy(Enemy** list, Enemy* maillon) {
+	if(*list == NULL) {
+		*list = maillon;
+	} else {
+		getLastEnemy(*list)->nextEnemy=maillon;
+	}
+}
+
 void removeBullet(Bullet** list, Bullet* maillon) {
-	bulletBeforeOf(list, maillon)->nextBullet = maillon->nextBullet;
+	Bullet* bulletBefore = bulletBeforeOf(list, maillon);
+	// If maillon is the first element in the list...
+	if(bulletBefore == NULL) {
+		//.. and he has no bullet next, it's the only element in the list
+		if(maillon->nextBullet == NULL) {
+			*list = NULL;
+		} 
+		//...and it has a bullet next, the next element becomes the head of the list
+		else {
+			*list = maillon->nextBullet;
+		}
+	} 
+	// ... else if it's a bullet in the list
+	else {
+		bulletBefore->nextBullet = maillon->nextBullet;
+	}
+	free(maillon);
+}
+
+void removeEnemy(Enemy** list, Enemy* maillon) {
+	Enemy* enemyBefore = enemyBeforeOf(list, maillon);
+	// If maillon is the first element in the list...
+	if(enemyBefore == NULL) {
+		//.. and he has no bullet next, it's the only element in the list
+		if(maillon->nextEnemy == NULL) {
+			*list = NULL;
+		} 
+		//...and it has a bullet next, the next element becomes the head of the list
+		else {
+			*list = maillon->nextEnemy;
+		}
+	} 
+	// ... else if it's a bullet in the list
+	else {
+		enemyBefore->nextEnemy = maillon->nextEnemy;
+	}
+	free(maillon);
 }
 
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon) {
 	Bullet* buffer = *list;
 	while(buffer->nextBullet != maillon) {
 		buffer = buffer->nextBullet;
+		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
+		if(buffer == NULL) {
+			return NULL;
+		}
+	}
+	return buffer;
+}
+
+Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
+	Enemy* buffer = *list;
+	while(buffer->nextEnemy != maillon) {
+		buffer = buffer->nextEnemy;
+		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
+		if(buffer == NULL) {
+			return NULL;
+		}
 	}
 	return buffer;
 }

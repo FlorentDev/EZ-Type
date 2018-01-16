@@ -8,10 +8,19 @@ typedef struct {
 	int speedY;
 } Speed;
 
-void moveUp(Position* pos, Speed speed);
+typedef struct {
+	//(x,y) représente les coordonnées du point en bas à gauche du rectangle
+	Position pos;
+	int width;
+	int height;
+} Hitbox;
 
-void moveDown(Position* pos, Speed speed);
+void moveUp(Hitbox* hitbox, Position* pos, Speed speed);
 
-void moveLeft(Position* pos, Speed speed);
+void moveDown(Hitbox* hitbox, Position* pos, Speed speed);
 
-void moveRight(Position* pos, Speed speed);
+void moveLeft(Hitbox* hitbox, Position* pos, Speed speed);
+
+void moveRight(Hitbox* hitbox, Position* pos, Speed speed);
+
+int checkCollision(Hitbox hitbox1, Hitbox hitbox2);
