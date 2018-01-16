@@ -12,6 +12,7 @@ static char nomProfil[20];
 
 void menuPrint(int menu){
 	char message[255];
+	
 	if(menu==1){
 		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);

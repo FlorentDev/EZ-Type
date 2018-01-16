@@ -83,7 +83,7 @@
    mettre en place simplement un environnement graphique portable */
 
 
-typedef enum {Inactivite, Affichage, Clavier, ClavierSpecial, Souris, BoutonSouris, Initialisation, Redimensionnement, Temporisation}
+typedef enum {Inactivite, Affichage, Clavier, ClavierRelache, ClavierSpecial, Souris, BoutonSouris, Initialisation, Redimensionnement, Temporisation}
 	EvenementGfx;
 typedef enum {GaucheAppuye, GaucheRelache, DroiteAppuye, DroiteRelache}
 	EtatBoutonSouris;
@@ -194,6 +194,8 @@ EtatBoutonSouris etatBoutonSouris(void);
 char caractereClavier(void);
 /* Renvoie la derniere touche speciale du clavier traitee par l'evenement ClavierSpecial */
 int toucheClavier(void);
+// Indique si la touche passee en argument est appuyee ou non
+bool toucheAppuyee(char touche);
 
 /* Indique l'etat de la touche Shift lors du dernier evenement Clavier */
 bool toucheShiftAppuyee(void);

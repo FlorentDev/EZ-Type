@@ -17,7 +17,7 @@ Our school require us to use the C language (which is the unique language that w
 ## Présentation :
 
 Le jeu EZ-Type est developpé pour un projet scolaire.
-Pour notre 1ère année en cycle ingénieur, l’ISEN Yncréa Toulon nous a proposé de réaliser un projet algorithmique sur le thème « Jeu des années 80, le rétro gaming ».
+Pour notre 1ère année en cycle ingénieur, l’ISEN Yncréa Toulon nous a proposé de réaliser un projet algorithmique sur le thème « Jeu des années 80, le rétro gaming ».
 Pour cela, nous avons donc choisi de refaire le shoot'em Up R-Type.
 
 ## Les exigences :
