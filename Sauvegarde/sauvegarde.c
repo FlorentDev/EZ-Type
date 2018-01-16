@@ -1,4 +1,8 @@
 #include "sauvegarde.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h> //pour pouvoir utilsier plus de fonction de manipulation de fichier
 
 int saveScore(Score newScore)
 {
@@ -42,7 +46,7 @@ Score *getScores()
 		//on definis des variables temporaire utilisee plus tard pour le tri
 		char tempC[20] = "\0";
 		int tempS = 0;
-		bool placeFind = false;
+		int placeFind = 0;
 		//on ouvre le fichier en lecture
 		FILE* file = fopen("./Saves/scores.svd", "r");
 		//on parcour la totalitee du fichier (une fois par score)
@@ -58,10 +62,10 @@ Score *getScores()
 				{
 					scores[j].score = tempS;
 					strcpy(scores[j].name, tempC);
-					placeFind = true;
+					placeFind = 1;
 				}
 			}
-			placeFind = false;
+			placeFind = 0;
 		}
 		//grace a de la magie supplementaire (appelee algorythme de tri) on les classe par ordre decroissant
 		int besti = 0;
@@ -99,14 +103,14 @@ int save(Saved save)
 	if (file != NULL)
 	{
 		fwrite(&save.name, sizeof(char)*20, 1, file);
-		fwrite(&save.nb_dead_enemy, sizeof(int), 1, file);
+		fwrite(&save.nbDeadEnemy, sizeof(int), 1, file);
 		fwrite(&save.spaceship, sizeof(Spaceship), 1, file);
 		fclose(file);
-		return true;
+		return 1;
 	}
 	//on ferme en cas de probleme
 	fclose(file);
-	return false;
+	return 0;
 }
 
 Saved* getSave(char name[20])
@@ -125,7 +129,7 @@ Saved* getSave(char name[20])
 		FILE* file = fopen(str, "r");
 		//on lis les donnee et on les stock dans sv
 		fread(&sv->name, sizeof(char)*20, 1, file);
-		fread(&sv->nb_dead_enemy, sizeof(int), 1, file);
+		fread(&sv->nbDeadEnemy, sizeof(int), 1, file);
 		fread(&sv->spaceship, sizeof(Spaceship), 1, file);
 		//on ferme le fichier
 		fclose(file);
