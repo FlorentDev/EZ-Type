@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "../Sauvegarde/sauvegarde.h"
+
 typedef enum {Defaut, Terminator, MichelATord, FoconMillenium}
 	spaceShipSkin;
 
@@ -76,4 +80,46 @@ void stringcpy(char *strA, char strB[255]){
 		i++;
 	}
 	strA[i]='\0';
+}
+
+int profil(int mode, char *id, int nbEnemy){
+	static char name[20] = "";
+	static int score = 0;
+	Saved tmp;
+	Saved *saveId = &tmp;
+	switch(mode){
+		case 0: // Return score
+			if(name[0]=='\0')
+				return 0;
+			else
+				return score;
+			break;
+		case 1: // Open the save of the given name
+			saveId=getSave(id);
+			if(saveId != NULL){
+				stringcpy(name, saveId->name);
+				score = saveId->nbDeadEnemy;
+				return 1; // 1 profil found
+			}
+			stringcpy(name, id);
+			return 0; // 0 profil found
+			break;
+		case 2: // save score
+			if(name[0]=='\0'){
+				score = nbEnemy;
+				return 1; // Print profil menu to have a name
+			}
+			else{
+				score = nbEnemy;
+				stringcpy(saveId->name, name);
+				saveId->nbDeadEnemy = score;
+				if(!save(*saveId))
+					printf("Erreur d'enregistrement");
+				score = 0;
+				return 0; // Score save
+			}
+		default:
+			return 0;
+			break;
+	}
 }
