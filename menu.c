@@ -1,11 +1,13 @@
-
+#ifndef SAUVEGARDE_H
+	#include "Sauvegarde/sauvegarde.h"
+	#define SAUVEGARDE_H
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include "GfxLib/GfxLib.h"
 #include "GfxLib/BmpLib.h"
 #include "moteur/param.h"
 #include "moteur/game.h"
-#include "Sauvegarde/sauvegarde.h"
 
 static char nomProfil[20];
 static char array_score[20];
