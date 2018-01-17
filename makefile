@@ -1,12 +1,12 @@
 all: EZ-Type
 
-EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/bonus.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o gfx GfxLib/libisentlib.a
+EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/utils.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/bonus.o moteur/enemy.o moteur/bullet.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o gfx GfxLib/libisentlib.a
 #	Compilation linux:
-	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/bonus.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
+	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/utils.o moteur/displayGame.o moteur/bonus.o moteur/updateGame.o moteur/enemy.o moteur/bullet.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
 #	Compilation Mac:
-#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/bonus.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
+#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/utils.o moteur/displayGame.o moteur/bonus.o moteur/updateGame.o moteur/enemy.o moteur/bullet.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
 
-EZ-Type.o: EZ-Type.c moteur/param.h moteur/displayGame.h moteur/updateGame.h moteur/bonus.h moteur/inputGame.h GfxLib/GfxLib.h GfxLib/BmpLib.h menu.h
+EZ-Type.o: EZ-Type.c moteur/param.h moteur/displayGame.h moteur/utils.h moteur/updateGame.h moteur/enemy.h moteur/bullet.h moteur/bonus.h moteur/inputGame.h GfxLib/GfxLib.h GfxLib/BmpLib.h menu.h
 	gcc -c EZ-Type.c -Wall -O1
 
 menu.o: menu.c moteur/param.h moteur/game.h GfxLib/GfxLib.h GfxLib/BmpLib.h
@@ -29,6 +29,12 @@ moteur/entity.o: moteur/entity.c
 	
 moteur/bonus.o: moteur/bonus.c
 	gcc -o moteur/bonus.o -c moteur/bonus.c -Wall -O1
+	
+moteur/enemy.o: moteur/enemy.c
+	gcc -o moteur/enemy.o -c moteur/enemy.c -Wall -O1
+	
+moteur/bullet.o: moteur/bullet.c
+	gcc -o moteur/bullet.o -c moteur/bullet.c -Wall -O1
 
 moteur/inputGame.o: moteur/inputGame.c
 	gcc -o moteur/inputGame.o -c moteur/inputGame.c -Wall -O1
@@ -38,6 +44,9 @@ Sauvegarde/sauvegarde.o: Sauvegarde/sauvegarde.c
 
 moteur/background.o: moteur/background.c
 	gcc -o moteur/background.o -c moteur/background.c -Wall -O1
+	
+moteur/utils.o: moteur/utils.c
+	gcc -o moteur/utils.o -c moteur/utils.c -Wall -O1
 
 gfx:
 	make libisentlib.a -C GfxLib

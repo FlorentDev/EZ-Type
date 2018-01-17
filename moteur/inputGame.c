@@ -3,11 +3,7 @@
 	#include "entity.h"
 #endif
 
- #ifndef GAME_H
-	#define GAME_H
-	#include "game.h"
-#endif
-
+#include "game.h"
 #include "../GfxLib/GfxLib.h"
 #include "../GfxLib/BmpLib.h"
 

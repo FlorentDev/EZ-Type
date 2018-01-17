@@ -9,7 +9,7 @@ typedef struct {
 } Speed;
 
 typedef struct {
-	//(x,y) représente les coordonnées du point en bas à gauche du rectangle
+	//(x,y) is the bottom left corner
 	Position pos;
 	int width;
 	int height;

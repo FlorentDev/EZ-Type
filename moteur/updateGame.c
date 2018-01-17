@@ -1,28 +1,19 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#ifndef GFXLIB_H
-	#include "../GfxLib/GfxLib.h"
-	#define GFXLIB_H
-#endif
-
-#ifndef GAME_H
-	#define GAME_H
-	#include "game.h"
-#endif
-
 #ifndef ENTITY_H
 	#define ENTITY_H
 	#include "entity.h"
 #endif
 
+#include <stdlib.h>
+#include "../GfxLib/GfxLib.h"
+#include "utils.h"
+#include "game.h"
+
 void updateGame(Game* game) {
 	// If there is no enemy, go to the next level
 	if(game->nbEnemies == 0) {
 		nextLevel();
-		printf("core dumped lul\n");
 	}
-	
+
 	int hasBonusBeenDeleted = 0;
 	
 	//Move every bonus
@@ -53,8 +44,11 @@ void updateGame(Game* game) {
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
 	
+	Bullet* bulletsToDelete[100];
+	int count = 0;
+	
 	Bullet* bufferBullet = game->bullets;
-	while(bufferBullet != NULL) {		
+	while(bufferBullet != NULL) {	
 		//FIXME: If the bullet touched two enemies at the same time, it's deleted two times in a row (which core dump)
 		int hasBulletBeenDeleted = 0;
 		int hasEnemyBeenDeleted = 0;
@@ -66,7 +60,9 @@ void updateGame(Game* game) {
 		
 		//If the bullet is out of screen remove it
 		if(isOutOfScreen(bufferBullet->hitbox) == 1) {
-			removeBullet(&game->bullets, &bufferBullet);
+			bulletsToDelete[count] = bufferBullet;
+			count++;
+			//removeBullet(&game->bullets, &bufferBullet);
 			hasBulletBeenDeleted = 1;
 		}
 		
@@ -77,7 +73,9 @@ void updateGame(Game* game) {
 			if(bufferBullet->speed.speedX > 0 && checkCollision(bufferBullet->hitbox, bufferEnemy->hitbox) == 1) {
 				bufferEnemy->life -= game->spaceship.damage;
 				if(hasBulletBeenDeleted == 0) {
-					removeBullet(&game->bullets, &bufferBullet);
+					bulletsToDelete[count] = bufferBullet;
+					count++;
+					//removeBullet(&game->bullets, &bufferBullet);
 					hasBulletBeenDeleted = 1;
 				}
 				//If the enemy is dead, remove it
@@ -99,6 +97,7 @@ void updateGame(Game* game) {
 						}
 					}
 					game->score += 50;
+					game->nbEnemies--;
 					removeEnemy(&game->enemies, &bufferEnemy);
 					hasEnemyBeenDeleted = 1;
 				}
@@ -106,11 +105,13 @@ void updateGame(Game* game) {
 			//Iterate over enemies
 			bufferEnemy = bufferEnemy->nextEnemy;
 		}
-		
+
 		if(bufferBullet->speed.speedX < 0 && checkCollision(bufferBullet->hitbox, game->spaceship.hitbox) == 1) {
 			game->spaceship.life -= 20;
 			if(hasBulletBeenDeleted == 0) {
-				removeBullet(&game->bullets, &bufferBullet);
+				bulletsToDelete[count] = bufferBullet;
+				count++;
+				//removeBullet(&game->bullets, &bufferBullet);
 				hasBulletBeenDeleted = 1;
 			}
 			if(game->spaceship.life <= 0) {
@@ -120,5 +121,11 @@ void updateGame(Game* game) {
 		
 		//Iterate over bullets
 		bufferBullet = bufferBullet->nextBullet;
+	}
+	
+	for(int i = 0; i < count; i++) {
+		if(bulletsToDelete[i] != NULL) {
+			removeBullet(&game->bullets, &bulletsToDelete[i]);
+		}
 	}
 }

@@ -1,10 +1,5 @@
-#ifndef BONUS_H
-	#define BONUS_H
-	#include "bonus.h"
-#endif
-
-#include <stdio.h>
 #include <stdlib.h>
+#include "bonus.h"
 
 Bonus* createBonus(int x, int y, BonusType type) {
 	Bonus* newBonus = malloc(sizeof(Bonus));
@@ -34,6 +29,8 @@ Bonus* createBonus(int x, int y, BonusType type) {
 	return newBonus;
 }
 
+
+// Return the last bonus from the list
 Bonus* getLastBonus(Bonus* list) {
 	Bonus* buffer = list;
 	while(buffer->nextBonus != NULL) {
@@ -42,6 +39,7 @@ Bonus* getLastBonus(Bonus* list) {
 	return buffer;
 }
 
+// Insert the bonus in the list
 void insertQueueBonus(Bonus** list, Bonus* maillon) {
 	if(*list == NULL) {
 		*list = maillon;

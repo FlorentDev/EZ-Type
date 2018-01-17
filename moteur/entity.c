@@ -2,7 +2,6 @@
 	#define ENTITY_H
 	#include "entity.h"
 #endif
-
 #include <stdio.h>
 #include "../GfxLib/GfxLib.h"
 

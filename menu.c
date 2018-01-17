@@ -1,10 +1,7 @@
-// Bibliotheque standard
 #include <stdio.h>
 #include <stdlib.h>
-// Bibliotheque Gfx
 #include "GfxLib/GfxLib.h"
 #include "GfxLib/BmpLib.h"
-// Bibliotheque perso
 #include "moteur/param.h"
 #include "moteur/game.h"
 
@@ -115,7 +112,7 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()*0.2, hauteurFenetre()*0.45);
 		stringcpy(message, "Score : "); //affiche le score numérique
 		afficheChaine(message, 30, largeurFenetre()*0.2 + tailleChaine("Score : ", 30), hauteurFenetre()*0.45);
-		sprintf(array_score, "%d", gameEvent()->score); //affichage du score
+		sprintf(array_score, "%d", getGame()->score); //affichage du score
 	}
 	if(menu == 7){ //Menu accessible si le profil sélectionné avait déjà une partie en cours, la nouvelle partie se lance directement sinon
 		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
@@ -193,7 +190,7 @@ void menuClick(int *menu){
 		}
 		stringcpy(message, "Enregistrer et quitter");
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.35 && ordonneeSouris() < hauteurFenetre()*0.35 + 40){
-			if(profil(2, NULL, gameEvent()->score)){
+			if(profil(2, NULL, getGame()->score)){
 				*menu = 5;
 
 			}
@@ -205,7 +202,7 @@ void menuClick(int *menu){
 		stringcpy(message, "valider");
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()/2 + 40){
 			profil(1, nomProfil, 0);
-			profil(2, NULL, gameEvent()->score);
+			profil(2, NULL, getGame()->score);
 			*menu = 1;
 		}
 		stringcpy(message, "retour");
@@ -218,7 +215,7 @@ void menuClick(int *menu){
 		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){
 			*menu=0;
 			startGame(1); //Le score n'est pas remis à zéro dans dans cette fonction
-			gameEvent()->score = 0; //remise du score à zéro
+			getGame()->score = 0; //remise du score à zéro
 		}
 		stringcpy(message, "Retour au menu principal");
 		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25 && ordonneeSouris() < hauteurFenetre()*0.25 + 40){
@@ -235,7 +232,7 @@ void menuClick(int *menu){
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){
 			*menu = 0;
 			startGame(1);
-			gameEvent()->score = profil(0, NULL, 0); 
+			getGame()->score = profil(0, NULL, 0); 
 		}
 	}
 }
