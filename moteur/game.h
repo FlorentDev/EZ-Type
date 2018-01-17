@@ -34,9 +34,9 @@ void insertQueueEnemy(Enemy** list, Enemy* maillon);
 
 void insertQueueBullet(Bullet** list, Bullet* maillon);
 
-void removeBullet(Bullet** list, Bullet* maillon);
+void removeBullet(Bullet** list, Bullet** maillon);
 
-void removeEnemy(Enemy** list, Enemy* maillon);
+void removeEnemy(Enemy** list, Enemy** maillon);
 
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon);
 

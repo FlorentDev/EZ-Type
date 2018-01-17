@@ -83,7 +83,7 @@ Bullet* createBullet(int x, int y, int dir) {
 	newBullet->pos.y = y;
 	newBullet->speed.speedX = dir*15;
 	newBullet->speed.speedY = (rand()%2 == 0 ? 1 : -1) * rand()%3;
-	newBullet->image = lisBMPRGB("./Images/sprite_bullet.bmp");
+	newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
 	newBullet->hitbox.pos = newBullet->pos;
 	newBullet->hitbox.width = newBullet->image->largeurImage;
 	newBullet->hitbox.height = newBullet->image->hauteurImage;
@@ -123,44 +123,44 @@ void insertQueueEnemy(Enemy** list, Enemy* maillon) {
 	}
 }
 
-void removeBullet(Bullet** list, Bullet* maillon) {
-	Bullet* bulletBefore = bulletBeforeOf(list, maillon);
+void removeBullet(Bullet** list, Bullet** maillon) {
+	Bullet* bulletBefore = bulletBeforeOf(list, *maillon);
 	// If maillon is the first element in the list...
 	if(bulletBefore == NULL) {
 		//.. and he has no bullet next, it's the only element in the list
-		if(maillon->nextBullet == NULL) {
+		if((*maillon)->nextBullet == NULL) {
 			*list = NULL;
 		} 
 		//...and it has a bullet next, the next element becomes the head of the list
 		else {
-			*list = maillon->nextBullet;
+			*list = (*maillon)->nextBullet;
 		}
 	} 
 	// ... else if it's a bullet in the list
 	else {
-		bulletBefore->nextBullet = maillon->nextBullet;
+		bulletBefore->nextBullet = (*maillon)->nextBullet;
 	}
-	free(maillon);
+	free(*maillon);
 }
 
-void removeEnemy(Enemy** list, Enemy* maillon) {
-	Enemy* enemyBefore = enemyBeforeOf(list, maillon);
+void removeEnemy(Enemy** list, Enemy** maillon) {
+	Enemy* enemyBefore = enemyBeforeOf(list, *maillon);
 	// If maillon is the first element in the list...
 	if(enemyBefore == NULL) {
 		//.. and he has no bullet next, it's the only element in the list
-		if(maillon->nextEnemy == NULL) {
+		if((*maillon)->nextEnemy == NULL) {
 			*list = NULL;
 		} 
 		//...and it has a bullet next, the next element becomes the head of the list
 		else {
-			*list = maillon->nextEnemy;
+			*list = (*maillon)->nextEnemy;
 		}
 	} 
 	// ... else if it's a bullet in the list
 	else {
-		enemyBefore->nextEnemy = maillon->nextEnemy;
+		enemyBefore->nextEnemy = (*maillon)->nextEnemy;
 	}
-	free(maillon);
+	free(*maillon);
 }
 
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon) {

@@ -38,7 +38,7 @@ void updateGame(Game* game) {
 		
 		//If the bullet is out of screen remove it
 		if(bufferBullet->pos.x + bufferBullet->hitbox.width >= largeurFenetre() || bufferBullet->pos.y > hauteurFenetre()) {
-			removeBullet(&game->bullets, bufferBullet);
+			removeBullet(&game->bullets, &bufferBullet);
 			hasBulletBeenDeleted = 1;
 		}
 		
@@ -49,12 +49,12 @@ void updateGame(Game* game) {
 			if(bufferBullet->speed.speedX > 0 && checkCollision(bufferBullet->hitbox, bufferEnemy->hitbox) == 1) {
 				bufferEnemy->life -= 20;
 				if(hasBulletBeenDeleted == 0) {
-					removeBullet(&game->bullets, bufferBullet);
+					removeBullet(&game->bullets, &bufferBullet);
 					hasBulletBeenDeleted = 1;
 				}
 				//If the enemy is dead, remove it
-				if(bufferEnemy->life <= 0 && hasEnemyBeenDeleted == 0) {
-					removeEnemy(&game->enemies, bufferEnemy);
+				if(hasEnemyBeenDeleted == 0 && bufferEnemy->life <= 0) {
+					removeEnemy(&game->enemies, &bufferEnemy);
 					hasEnemyBeenDeleted = 1;
 				}
 			}
@@ -66,7 +66,7 @@ void updateGame(Game* game) {
 			game->spaceship.life -= 20;
 			if(game->spaceship.life <= 0) {
 				if(hasBulletBeenDeleted == 0) {
-					removeBullet(&game->bullets, bufferBullet);
+					removeBullet(&game->bullets, &bufferBullet);
 					hasBulletBeenDeleted = 1;
 				}
 				//Todo: Die
