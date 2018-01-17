@@ -7,29 +7,54 @@
 #endif
 
 #ifndef GAME_H
-	#include "game.h"
 	#define GAME_H
+	#include "game.h"
 #endif
 
 #ifndef ENTITY_H
-	#include "entity.h"
 	#define ENTITY_H
+	#include "entity.h"
 #endif
 
 void updateGame(Game* game) {
+	// If there is no enemy, go to the next level
+	if(game->nbEnemies == 0) {
+		nextLevel();
+		printf("core dumped lul\n");
+	}
+	
+	int hasBonusBeenDeleted = 0;
+	
+	//Move every bonus
+	Bonus* bufferBonus = game->bonuses;	
+	while(bufferBonus != NULL) {
+		moveLeft(&bufferBonus->hitbox, &bufferBonus->pos, bufferBonus->speed);
+		if(hasBonusBeenDeleted == 0 && checkCollision(game->spaceship.hitbox, bufferBonus->hitbox) == 1) {
+			activateBonus(game, *bufferBonus);
+			removeBonus(&game->bonuses, &bufferBonus);
+			hasBonusBeenDeleted = 1;
+		}
+		//If the bonus is out of screen remove it
+		if(hasBonusBeenDeleted == 0 && isOutOfScreen(bufferBonus->hitbox)) {
+			removeBonus(&game->bonuses, &bufferBonus);
+			hasBonusBeenDeleted = 1;
+		}
+		bufferBonus = bufferBonus->nextBonus;
+	}
+	
 	//Move every enemy
-	Enemy* bufferEnemy = game->enemies;
+	Enemy* bufferEnemy = game->enemies;	
 	while(bufferEnemy != NULL) {
 		moveLeft(&bufferEnemy->hitbox, &bufferEnemy->pos, bufferEnemy->speed);
-		if(getRand(200) == 0) {
+		//Each enemy has 1 out of 200 opportunity to shoot
+		if(getRand(150) == 0) {
 			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos.x, bufferEnemy->pos.y, -1));
 		}
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
 	
 	Bullet* bufferBullet = game->bullets;
-	while(bufferBullet != NULL) {
-		
+	while(bufferBullet != NULL) {		
 		//FIXME: If the bullet touched two enemies at the same time, it's deleted two times in a row (which core dump)
 		int hasBulletBeenDeleted = 0;
 		int hasEnemyBeenDeleted = 0;
@@ -40,7 +65,7 @@ void updateGame(Game* game) {
 		moveRight(&bufferBullet->hitbox, &bufferBullet->pos, bufferBullet->speed);
 		
 		//If the bullet is out of screen remove it
-		if(bufferBullet->pos.x + bufferBullet->hitbox.width >= largeurFenetre() || bufferBullet->pos.y > hauteurFenetre()) {
+		if(isOutOfScreen(bufferBullet->hitbox) == 1) {
 			removeBullet(&game->bullets, &bufferBullet);
 			hasBulletBeenDeleted = 1;
 		}
@@ -57,6 +82,23 @@ void updateGame(Game* game) {
 				}
 				//If the enemy is dead, remove it
 				if(hasEnemyBeenDeleted == 0 && bufferEnemy->life <= 0) {
+					if(getRand(20) == 0) {
+						switch(getRand(4)) {
+							case 0:
+								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotSpeed));
+								break;
+							case 1:
+								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotNb));
+								break;
+							case 2:
+								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, RegenerateLife));
+								break;
+							case 3:
+								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, Shield));
+								break;	
+						}
+					}
+					game->score += 50;
 					removeEnemy(&game->enemies, &bufferEnemy);
 					hasEnemyBeenDeleted = 1;
 				}
@@ -72,7 +114,7 @@ void updateGame(Game* game) {
 				hasBulletBeenDeleted = 1;
 			}
 			if(game->spaceship.life <= 0) {
-				gamePause(2);
+				endGame();
 			}
 		}
 		

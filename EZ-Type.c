@@ -7,11 +7,8 @@
 #include "GfxLib/BmpLib.h"
 // Librairie perso
 #include "menu.h"
+
 #include "moteur/inputGame.h"
-#ifndef GAME_H
-	#include "moteur/game.h"
-	#define GAME_H
-#endif
 #include "moteur/displayGame.h"
 #include "moteur/updateGame.h"
 
@@ -40,7 +37,7 @@ void gestionEvenement(EvenementGfx event){
 			demandeTemporisation(20);
 			break;
 		case Temporisation:
-			if(gameState()) {
+			if(gameState() == 1) {
 				smoothKeyboardGame(gameEvent());
 				updateGame(gameEvent());
 			}

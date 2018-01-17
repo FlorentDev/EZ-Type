@@ -24,3 +24,5 @@ void moveLeft(Hitbox* hitbox, Position* pos, Speed speed);
 void moveRight(Hitbox* hitbox, Position* pos, Speed speed);
 
 int checkCollision(Hitbox hitbox1, Hitbox hitbox2);
+
+int isOutOfScreen(Hitbox hitbox);
