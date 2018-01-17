@@ -30,8 +30,14 @@ Bullet* getLastBullet(Bullet* list);
 
 Enemy* getLastEnemy(Enemy* list);
 
-void insertQueue(Bullet** list, Bullet* maillon);
+void insertQueueEnemy(Enemy** list, Enemy* maillon);
 
-void removeBullet(Bullet** list, Bullet* maillon);
+void insertQueueBullet(Bullet** list, Bullet* maillon);
+
+void removeBullet(Bullet** list, Bullet** maillon);
+
+void removeEnemy(Enemy** list, Enemy** maillon);
 
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon);
+
+Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon);

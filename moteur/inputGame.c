@@ -13,22 +13,26 @@ void keyboardGame(Game *game) {
 	switch(caractereClavier()) {
 		case 'z':
 		case 'Z':
-			moveUp(&game->spaceship.pos, game->spaceship.speed);
+			moveUp(&game->spaceship.hitbox, &game->spaceship.pos, game->spaceship.speed);
 			break;
 		case 'q':
 		case 'Q':
-			moveLeft(&game->spaceship.pos, game->spaceship.speed);
+			moveLeft(&game->spaceship.hitbox, &game->spaceship.pos, game->spaceship.speed);
 			break;
 		case 's':
 		case 'S':
-			moveDown(&game->spaceship.pos, game->spaceship.speed);
+			moveDown(&game->spaceship.hitbox, &game->spaceship.pos, game->spaceship.speed);
 			break;
 		case 'd':
 		case 'D':
-			moveRight(&game->spaceship.pos, game->spaceship.speed);
+			moveRight(&game->spaceship.hitbox, &game->spaceship.pos, game->spaceship.speed);
+			break;
+		case 'g':
+		case 'G':
+			insertQueueEnemy(&game->enemies, createEnemy(largeurFenetre()-50, hauteurFenetre()/2));
 			break;
 		case ' ':
-			insertQueue(&game->bullets, createBullet(game->spaceship.pos.x, game->spaceship.pos.y, 1));
+			insertQueueBullet(&game->bullets, createBullet(game->spaceship.pos.x + game->spaceship.hitbox.width, game->spaceship.pos.y, 1));
 			break;
 		case 27:
 			gamePause(0);
