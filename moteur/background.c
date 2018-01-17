@@ -6,50 +6,50 @@ typedef struct star{
 	int x;
 	int y;
 	struct star *next;
-}STAR;
+} Star;
 
-static STAR *star = NULL;
+static Star *head = NULL;
 
 void background(void){
 	if(getRand(2) == 0){
-		if(star==NULL){
-			star = (STAR *) malloc(sizeof(STAR));
-			star->next=NULL;
-			star->x = largeurFenetre();
-			star->y = rand() % hauteurFenetre();
+		if(head==NULL){
+			head = (Star *) malloc(sizeof(Star));
+			head->next = NULL;
+			head->x = largeurFenetre();
+			head->y = rand() % hauteurFenetre();
 		}
 		else{
-			STAR *end = star;
+			Star *end = head;
 			while(end->next!=NULL){
 				end = end->next;
 			}
-			end->next = (STAR *) malloc(sizeof(STAR));
+			end->next = (Star *) malloc(sizeof(Star));
 			end->next->x = largeurFenetre();
 			end->next->y = rand() % hauteurFenetre();
 			end->next->next = NULL;
 		}
 	}
-	STAR *all = star;
+	Star *all = head;
 	while(all!=NULL){
 		couleurCourante(255, 255, 255);
 		rectangle(all->x, all->y, all->x + 1, all->y + 1);
 		all->x = all->x - 10;
 		all = all->next;
 	}
-	if(star!=NULL && star->x<0){
-		STAR *tmp = star;
-		star = star->next;
+	if(head != NULL && head->x < 0){
+		Star *tmp = head;
+		head = head->next;
 		free(tmp);
 	}
 }
 
-void freeBackground(void){
-	STAR *tmp;
-	while(star!=NULL){
-		tmp=star;
-		while(tmp->next!=NULL){
-			tmp = tmp->next;
-		}
-		free(tmp);
-	}
+void freeBackground() {
+    Star *current = head;
+    Star *next;
+    while(current != NULL) {
+       next = current->next;
+       free(current);
+       current = next;
+    }
+    head = NULL;
 }
