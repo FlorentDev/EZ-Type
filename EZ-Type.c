@@ -29,8 +29,10 @@ void gestionEvenement(EvenementGfx event){
 	static int menu = 0;
 	if(menu==0 && gameState()==0) // Prise en charge de la pause
 		menu = 4;
-	if(gameState()==2)
+	if(gameState()==2) {
 		menu = 6;
+		gamePause(0);
+	}
 
 	switch(event){
 		case Initialisation:
@@ -38,16 +40,17 @@ void gestionEvenement(EvenementGfx event){
 			demandeTemporisation(20);
 			break;
 		case Temporisation:
-			if(gameState())
+			if(gameState() == 1) {
 				smoothKeyboardGame(gameEvent());
-			updateGame(gameEvent());
+				updateGame(gameEvent());
+			}
 			rafraichisFenetre();
 			break;
 		case Affichage:
 			effaceFenetre(0, 0, 0);
 			if(menu)
 				menuPrint(menu);
-			if(gameState())
+			if(gameState() )
 				displayGame();
 			break;
 		case Clavier:

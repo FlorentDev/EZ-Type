@@ -26,6 +26,7 @@ void startGame(int begin){
 
 void gamePause(int pause){
 	gamestate = pause;
+	printf("%d\n", pause);
 }
 
 int gameState(void){
@@ -46,11 +47,12 @@ Game initGame(void){
 	//game.score = 0;
 	game.spaceship.pos.x = largeurFenetre()*0.20;
 	game.spaceship.pos.y = hauteurFenetre()/2;
-	game.spaceship.speed.speedX = 15;
-	game.spaceship.speed.speedY = 15;
+	game.spaceship.speed.speedX = 10;
+	game.spaceship.speed.speedY = 10;
 	stringcpy(game.spaceship.skin, vaisseau(0));
 	game.spaceship.shield = 0;
 	game.spaceship.life = 100;
+	game.spaceship.damage = 20;
 	game.spaceship.shotSpeed = 5;
 	game.spaceship.shotNb = 1;
 	game.spaceship.image = lisBMPRGB("./Images/ship.bmp");
@@ -65,11 +67,11 @@ Game initGame(void){
 Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
 	newEnemy->pos.x = x;
-	newEnemy->pos.y = y + rand()%500-250;
+	newEnemy->pos.y = y + rand()%largeurFenetre()-largeurFenetre()/2;
 	newEnemy->speed.speedX = 1;
 	newEnemy->speed.speedY = 1;	
 	newEnemy->life = 100;
-	newEnemy->image = lisBMPRGB("./Images/ship.bmp");
+	newEnemy->image = lisBMPRGB("./Images/enemy_1.bmp");
 	newEnemy->hitbox.pos = newEnemy->pos;
 	newEnemy->hitbox.width = newEnemy->image->largeurImage;
 	newEnemy->hitbox.height = newEnemy->image->hauteurImage;
@@ -185,4 +187,8 @@ Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
 		}
 	}
 	return buffer;
+}
+
+int getRand(int max) {
+	return rand()%max;
 }
