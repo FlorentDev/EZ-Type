@@ -3,15 +3,19 @@
 	#define GFXLIB_H
 #endif
 
+#ifndef GAME_H
+	#define GAME_H
+	#include "game.h"
+#endif
+
 #include <stdio.h>
 #include "../GfxLib/BmpLib.h"
-#include "game.h"
+#include "background.h"
 
 void displayGame(void){ 
+	background();
 	Game *game = gameEvent();
-	DonneesImageRGB *image = NULL;
-	image = lisBMPRGB("Images/ship.bmp");
-	ecrisImage(game->spaceship.pos.x, game->spaceship.pos.y, image->largeurImage, image->hauteurImage, image->donneesRGB);
+	ecrisImage(game->spaceship.pos.x, game->spaceship.pos.y, game->spaceship.image->largeurImage, game->spaceship.image->hauteurImage, game->spaceship.image->donneesRGB);
 	
 	Enemy* bufferEnemy = game->enemies;
 	while(bufferEnemy != NULL) {
@@ -24,6 +28,27 @@ void displayGame(void){
 		ecrisImage(bufferBullet->pos.x, bufferBullet->pos.y, bufferBullet->image->largeurImage, bufferBullet->image->hauteurImage, bufferBullet->image->donneesRGB);
 		bufferBullet = bufferBullet->nextBullet;
 	}
+	
+	Bonus* bufferBonus = game->bonuses;
+	while(bufferBonus != NULL) {
+		ecrisImage(bufferBonus->pos.x, bufferBonus->pos.y, bufferBonus->image->largeurImage, bufferBonus->image->hauteurImage, bufferBonus->image->donneesRGB);
+		bufferBonus = bufferBonus->nextBonus;
+	}
 
-	libereDonneesImageRGB(&image);
+	//Display score
+	char scoreStr[50];
+	sprintf(scoreStr, "Score: %d", game->score);
+	afficheChaine(scoreStr, 20, 5, hauteurFenetre() - 25);
+	
+	//Display level
+	char levelStr[50];
+	sprintf(levelStr, "Level: %d", game->level);
+	afficheChaine(levelStr, 20, 5, hauteurFenetre() - 55);
+	
+	//Display life
+	couleurCourante(255, 255, 255);
+	rectangle(2, 2, largeurFenetre()/3.0 + 1, 17);
+	couleurCourante(250, 10, 10);
+	rectangle(3, 3, largeurFenetre()/3.0/100.0*game->spaceship.life, 15);
+	couleurCourante(255, 255, 255);
 }

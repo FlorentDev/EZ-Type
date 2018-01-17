@@ -1,16 +1,24 @@
 #include "spaceship.h"
 #include "enemy.h"
 #include "bullet.h"
+#ifndef BONUS_H
+	#define BONUS_H
+	#include "bonus.h"
+#endif
 
 typedef struct {
 	Spaceship spaceship;
 	Enemy *enemies;
 	Bullet *bullets;
+	Bonus *bonuses;
+	int nbEnemies;
+	int level;
 	int score;
 }Game;
 
-
 void startGame(int begin);
+
+void nextLevel();
 
 int gameState(void);
 
@@ -43,3 +51,5 @@ Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon);
 Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon);
 
 int getRand(int max);
+
+void activateBonus(Game* game, Bonus perk);

@@ -8,6 +8,7 @@
 	#define GFXLIB_H
 #endif
 
+#include "background.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "param.h"
@@ -26,7 +27,6 @@ void startGame(int begin){
 
 void gamePause(int pause){
 	gamestate = pause;
-	printf("%d\n", pause);
 }
 
 int gameState(void){
@@ -38,13 +38,14 @@ Game* gameEvent(void){
 }
 
 void endGame(void){
+	freeBackground();
 	gamestate = 2;
 }
 
 Game initGame(void){
 	srand(time(NULL));
 	Game game;
-	//game.score = 0;
+	game.score = 0;
 	game.spaceship.pos.x = largeurFenetre()*0.20;
 	game.spaceship.pos.y = hauteurFenetre()/2;
 	game.spaceship.speed.speedX = 10;
@@ -61,13 +62,24 @@ Game initGame(void){
 	game.spaceship.hitbox.height = game.spaceship.image->hauteurImage;
 	game.bullets = NULL;
 	game.enemies = NULL;
+	game.bonuses = NULL;
+	game.level = 0;
 	return game;
+}
+
+void nextLevel() {
+	//nbEnemy = level² + 4
+	game->level++;
+	game->nbEnemies = game->level * game->level + 4;
+	for(int i = 0; i < game->nbEnemies; i++) {
+		insertQueueEnemy(&game->enemies, createEnemy(largeurFenetre()-getRand(150), 50 + getRand(hauteurFenetre()-100)));
+	}
 }
 
 Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
 	newEnemy->pos.x = x;
-	newEnemy->pos.y = y + rand()%largeurFenetre()-largeurFenetre()/2;
+	newEnemy->pos.y = y;
 	newEnemy->speed.speedX = 1;
 	newEnemy->speed.speedY = 1;	
 	newEnemy->life = 100;
@@ -84,8 +96,12 @@ Bullet* createBullet(int x, int y, int dir) {
 	newBullet->pos.x = x;
 	newBullet->pos.y = y;
 	newBullet->speed.speedX = dir*15;
-	newBullet->speed.speedY = (rand()%2 == 0 ? 1 : -1) * rand()%3;
-	newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
+	newBullet->speed.speedY = (getRand(2) == 0 ? 1 : -1) * getRand(4);
+	if(dir == 1) {
+		newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
+	} else {
+		newBullet->image = lisBMPRGB("./Images/red_little_bullet_enemy.bmp");
+	}
 	newBullet->hitbox.pos = newBullet->pos;
 	newBullet->hitbox.width = newBullet->image->largeurImage;
 	newBullet->hitbox.height = newBullet->image->hauteurImage;
@@ -163,6 +179,7 @@ void removeEnemy(Enemy** list, Enemy** maillon) {
 		enemyBefore->nextEnemy = (*maillon)->nextEnemy;
 	}
 	free(*maillon);
+	game->nbEnemies--;
 }
 
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon) {
@@ -191,4 +208,21 @@ Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
 
 int getRand(int max) {
 	return rand()%max;
+}
+
+void activateBonus(Game* game, Bonus perk) {
+	switch(perk.type) {
+		case RegenerateLife:
+			game->spaceship.life = 100;
+			break;
+		case Shield:
+			game->spaceship.shield = 20;
+			break;
+		case IncreaseShotSpeed:
+			game->spaceship.shotSpeed++;
+			break;
+		case IncreaseShotNb:
+			game->spaceship.shotNb++;
+			break;
+	}
 }
