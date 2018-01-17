@@ -1,8 +1,8 @@
 all: EZ-Type
 
-EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o GfxLib/libisentlib.a
+EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o GfxLib/libisentlib.a gfx
 #	Compilation linux:
-	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
+#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
 #	Compilation Mac:
 #	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
 
@@ -33,5 +33,8 @@ moteur/inputGame.o: moteur/inputGame.c
 Sauvegarde/sauvegarde.o: Sauvegarde/sauvegarde.c
 	gcc -o Sauvegarde/sauvegarde.o -c Sauvegarde/sauvegarde.c -Wall -O1
 
+gfx:
+	make libisentlib.a -C GfxLib
+	
 clean:
 	rm -f *~ *.o ./moteur/*~ ./moteur/*.o 
