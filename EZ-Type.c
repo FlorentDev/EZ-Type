@@ -38,6 +38,8 @@ void gestionEvenement(EvenementGfx event){
 			demandeTemporisation(20);
 			break;
 		case Temporisation:
+			if(gameState())
+				smoothKeyboardGame(gameEvent());
 			updateGame(gameEvent());
 			rafraichisFenetre();
 			break;
@@ -60,6 +62,8 @@ void gestionEvenement(EvenementGfx event){
 				else
 					redimensionneFenetre(800, 600);
 			}
+			break;
+		case ClavierRelache:
 			break;
 		case ClavierSpecial:
 			break;

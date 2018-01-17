@@ -1,22 +1,3 @@
-exemple: exemple.o libisentlib.a
-	gcc -Wall exemple.o -o exemple libisentlib.a -lm -lglut -lGL -lX11
-# Sous MacOSX, commenter la ligne de commande ci-dessus (en mettant un # au debut)
-# et de-commenter la ligne de commande ci-apres :
-#	gcc -Wall exemple.o -o exemple libisentlib.a -lm -framework OpenGL -framework GLUT
-
-exempleTortue: exempleTortue.o libisentlib.a
-	gcc -Wall exempleTortue.o -o exempleTortue libisentlib.a -lm -lglut -lGL -lX11
-# Sous MacOSX, commenter la ligne de commande ci-dessus (en mettant un # au debut)
-# et de-commenter la ligne de commande ci-apres :
-#	gcc -Wall exempleTortue.o -o exempleTortue libisentlib.a -lm -framework OpenGL -framework GLUT
-
-exemple.o: exemple.c GfxLib.h BmpLib.h ESLib.h
-	gcc -Wall -c exemple.c
-
-exempleTortue.o: exempleTortue.c GfxLib.h BmpLib.h ESLib.h TortueLib.h
-	gcc -Wall -c exempleTortue.c
-
-
 libisentlib.a: BmpLib.o ErreurLib.o ESLib.o GfxLib.o OutilsLib.o SocketLib.o ThreadLib.o TortueLib.o VectorLib.o WavLib.o
 	ar r libisentlib.a BmpLib.o ErreurLib.o ESLib.o GfxLib.o OutilsLib.o SocketLib.o ThreadLib.o TortueLib.o VectorLib.o WavLib.o
 	ranlib libisentlib.a
@@ -64,5 +45,5 @@ clean:
 	rm -f *~ *.o
 
 deepclean: clean
-	rm -f exemple exempleTortue libisentlib.a
+	rm -f libisentlib.a
 

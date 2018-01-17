@@ -7,7 +7,7 @@
 #include "../GfxLib/GfxLib.h"
 
 void moveUp(Hitbox* hitbox, Position* pos, Speed speed) {
-	if(pos->y + 19 < hauteurFenetre()) {
+	if(pos->y + hitbox->height < hauteurFenetre()) {
 		pos->y += speed.speedY;
 		hitbox->pos.y = pos->y;
 	}
@@ -21,14 +21,14 @@ void moveDown(Hitbox* hitbox, Position* pos, Speed speed) {
 }
 
 void moveLeft(Hitbox* hitbox, Position* pos, Speed speed) {
-	if(pos->x > 1) {
+	if(pos->x > 0) {
 		pos->x -= speed.speedX;
 		hitbox->pos.x = pos->x;
 	}
 }
 
 void moveRight(Hitbox* hitbox, Position* pos, Speed speed) {
-	if(pos->x + 35 < largeurFenetre()) {
+	if(pos->x + hitbox->width < largeurFenetre()) {
 		pos->x += speed.speedX;
 		hitbox->pos.x = pos->x;
 	}
