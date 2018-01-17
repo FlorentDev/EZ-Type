@@ -40,7 +40,7 @@ void gestionEvenement(EvenementGfx event){
 			demandeTemporisation(20);
 			break;
 		case Temporisation:
-			if(gameState() == 1) {
+			if(gameState()) {
 				smoothKeyboardGame(gameEvent());
 				updateGame(gameEvent());
 			}
@@ -50,7 +50,7 @@ void gestionEvenement(EvenementGfx event){
 			effaceFenetre(0, 0, 0);
 			if(menu)
 				menuPrint(menu);
-			if(gameState() )
+			if(gameState())
 				displayGame();
 			break;
 		case Clavier:
