@@ -45,5 +45,5 @@ clean:
 	rm -f *~ *.o
 
 deepclean: clean
-	rm -f libisentlib.a
+	rm -f exemple exempleTortue libisentlib.a
 
