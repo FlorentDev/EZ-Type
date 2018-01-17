@@ -37,4 +37,7 @@ gfx:
 	make libisentlib.a -C GfxLib
 	
 clean:
-	rm -f *~ *.o ./moteur/*~ ./moteur/*.o 
+	rm *.o */*.o
+
+deepclean: clean
+	rm GfxLib/libisentlib.a
