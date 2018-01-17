@@ -1,4 +1,7 @@
-#include "spaceship.h"
+#ifndef SPACESHIP_H
+	#include "spaceship.h"
+	#define SPACESHIP_H
+#endif
 #include "enemy.h"
 #include "bullet.h"
 #include "bonus.h"

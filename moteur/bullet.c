@@ -12,7 +12,7 @@ Bullet* createBullet(int x, int y, int dir) {
 	if(dir == 1) {
 		newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
 	} else {
-		newBullet->image = lisBMPRGB("./Images/red_little_bullet_enemy_bmp");
+		newBullet->image = lisBMPRGB("./Images/red_little_bullet_enemy.bmp");
 	}
 	newBullet->hitbox.pos = newBullet->pos;
 	newBullet->hitbox.width = newBullet->image->largeurImage;

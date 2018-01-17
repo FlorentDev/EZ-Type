@@ -1,3 +1,8 @@
+#ifndef SPACESHIP_H
+	#include "../moteur/spaceship.h"
+	#define SPACESHIP_H
+#endif
+
 /*
 * \brief Strucuture d'une sauvegarde de score
 * \var name Nom du profil 
@@ -12,10 +17,10 @@ typedef struct {
 * \brief Toutes les sauvegardes de scores seront enregistrées dans un unique fichier nommé "scores.svd" situé dans un dossier "Saves"
 	Le chemin total vers le fichier sera donc "./Saves/scores.svd"
 	Si le dossier "Saves" ou le fichier "scores.svd" n'existe pas lors de l'appel de cette méthode, le(s) créer
-	Si la création du dossier ou du fichier a échoué, renvoyer 0 sinon renvoyer 1
+	Si la création du dossier ou du fichier a échoué, renvoyer '0' sinon renvoyer '1'
 	Enregistre 'newScore' dans le fichier des scores en binaire à la suite du fichier
 * \param newScore La structure Score à enregistrer
-* \return 1 si le score a pu être sauvegardé, 0 sinon
+* \return '1' si le score a pu être sauvegardé, '0' sinon
 */
 int saveScore(Score newScore);
 
@@ -25,32 +30,12 @@ int saveScore(Score newScore);
         Si le fichier n'existe pas ou qu'il est vide, renvoyer une liste de 5 éléments Score dont name[0] vaut '\0'
 * \return Renvoie tous les scores précédemment enregistrés sous forme de tableau trié par ordre décroissant
 **/
-Score* getScores();
-
-/**
-* \brief Structure définissant le vaisseau
-* \var x Coordonnée x
-* \var y Coordonnée y
-* \var skin Nom du vaisseau
-* \var shield Nombre de points de bouclier
-* \var life Nombre de points de vie
-* \var shotSpeed Vitesse de tir
-* \var shotNb Nombre de canons
-*/
-typedef struct {
-	float x;
-	float y;
-	char skin[20];
-	int shield;
-	int life;
-	int shotSpeed;
-	int shotNb;
-} Spaceship;
+Score *getScores();
 
 /** 
 * \brief Structure d'une sauvegarde de partie
 * \var name Nom du profil 
-* \var nbDeadEnemy Nombre d'ennemis actuellement tués dans la manche
+* \var nb_dead_enemy Nombre d'ennemis actuellement tués dans la manche
 * \var spaceship Vaisseau 
 **/
 typedef struct {
