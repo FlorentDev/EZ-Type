@@ -1,8 +1,8 @@
 all: EZ-Type
 
-EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o GfxLib/libisentlib.a gfx
+EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o gfx GfxLib/libisentlib.a
 #	Compilation linux:
-#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
+	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
 #	Compilation Mac:
 #	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
 
