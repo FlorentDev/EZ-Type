@@ -67,11 +67,11 @@ void updateGame(Game* game) {
 		
 		if(bufferBullet->speed.speedX < 0 && checkCollision(bufferBullet->hitbox, game->spaceship.hitbox) == 1) {
 			game->spaceship.life -= 20;
+			if(hasBulletBeenDeleted == 0) {
+				removeBullet(&game->bullets, &bufferBullet);
+				hasBulletBeenDeleted = 1;
+			}
 			if(game->spaceship.life <= 0) {
-				if(hasBulletBeenDeleted == 0) {
-					removeBullet(&game->bullets, &bufferBullet);
-					hasBulletBeenDeleted = 1;
-				}
 				gamePause(2);
 			}
 		}
