@@ -21,6 +21,9 @@ void updateGame(Game* game) {
 	Enemy* bufferEnemy = game->enemies;
 	while(bufferEnemy != NULL) {
 		moveLeft(&bufferEnemy->hitbox, &bufferEnemy->pos, bufferEnemy->speed);
+		if(getRand(200) == 0) {
+			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos.x, bufferEnemy->pos.y, -1));
+		}
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
 	
@@ -47,7 +50,7 @@ void updateGame(Game* game) {
 		while(bufferEnemy != NULL) {
 			// Check if a bullet and an enemy are colliding, and if the bullet was going left to right
 			if(bufferBullet->speed.speedX > 0 && checkCollision(bufferBullet->hitbox, bufferEnemy->hitbox) == 1) {
-				bufferEnemy->life -= 20;
+				bufferEnemy->life -= game->spaceship.damage;
 				if(hasBulletBeenDeleted == 0) {
 					removeBullet(&game->bullets, &bufferBullet);
 					hasBulletBeenDeleted = 1;
@@ -69,7 +72,7 @@ void updateGame(Game* game) {
 					removeBullet(&game->bullets, &bufferBullet);
 					hasBulletBeenDeleted = 1;
 				}
-				//Todo: Die
+				gamePause(2);
 			}
 		}
 		

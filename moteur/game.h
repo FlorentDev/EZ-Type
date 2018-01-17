@@ -41,3 +41,5 @@ void removeEnemy(Enemy** list, Enemy** maillon);
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon);
 
 Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon);
+
+int getRand(int max);

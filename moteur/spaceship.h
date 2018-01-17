@@ -12,6 +12,7 @@ typedef struct {
 	char skin[20];
 	int shield;
 	int life;
+	int damage;
 	int shotSpeed;
 	int shotNb;
 	DonneesImageRGB* image;
