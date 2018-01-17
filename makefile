@@ -1,12 +1,12 @@
 all: EZ-Type
 
-EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o gfx GfxLib/libisentlib.a
+EZ-Type: EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/bonus.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o gfx GfxLib/libisentlib.a
 #	Compilation linux:
-#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
+	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/bonus.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -lglut -lGL -lX11
 #	Compilation Mac:
-	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
+#	gcc -o EZ-Type EZ-Type.o menu.o moteur/param.o moteur/game.o moteur/displayGame.o moteur/bonus.o moteur/updateGame.o moteur/entity.o moteur/inputGame.o Sauvegarde/sauvegarde.o moteur/background.o -Wall GfxLib/libisentlib.a -framework OpenGL -framework GLUT
 
-EZ-Type.o: EZ-Type.c moteur/param.h moteur/displayGame.h moteur/updateGame.h moteur/inputGame.h GfxLib/GfxLib.h GfxLib/BmpLib.h menu.h
+EZ-Type.o: EZ-Type.c moteur/param.h moteur/displayGame.h moteur/updateGame.h moteur/bonus.h moteur/inputGame.h GfxLib/GfxLib.h GfxLib/BmpLib.h menu.h
 	gcc -c EZ-Type.c -Wall -O1
 
 menu.o: menu.c moteur/param.h moteur/game.h GfxLib/GfxLib.h GfxLib/BmpLib.h
@@ -26,6 +26,9 @@ moteur/updateGame.o: moteur/updateGame.c
 
 moteur/entity.o: moteur/entity.c
 	gcc -o moteur/entity.o -c moteur/entity.c -Wall -O1
+	
+moteur/bonus.o: moteur/bonus.c
+	gcc -o moteur/bonus.o -c moteur/bonus.c -Wall -O1
 
 moteur/inputGame.o: moteur/inputGame.c
 	gcc -o moteur/inputGame.o -c moteur/inputGame.c -Wall -O1
