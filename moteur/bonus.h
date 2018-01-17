@@ -17,7 +17,6 @@ typedef struct bonus {
 	struct bonus *nextBonus;
 } Bonus; 
 
-
 Bonus* createBonus(int x, int y, BonusType type);
 
 Bonus* getLastBonus(Bonus* list);

@@ -1,6 +1,6 @@
-#include <time.h>
 #include <stdlib.h>
 #include "../GfxLib/GfxLib.h"
+#include "utils.h"
 
 typedef struct star{
 	int x;
@@ -11,8 +11,7 @@ typedef struct star{
 static STAR *star = NULL;
 
 void background(void){
-	int createStar = rand()%2;
-	if(createStar){
+	if(getRand(2) == 0){
 		if(star==NULL){
 			star = (STAR *) malloc(sizeof(STAR));
 			star->next=NULL;

@@ -1,10 +1,8 @@
-// Bibliotheque standard
+
 #include <stdio.h>
 #include <stdlib.h>
-// Bibliotheque Gfx
 #include "GfxLib/GfxLib.h"
 #include "GfxLib/BmpLib.h"
-// Bibliotheque perso
 #include "moteur/param.h"
 #include "moteur/game.h"
 #include "Sauvegarde/sauvegarde.h"
@@ -311,4 +309,3 @@ void saisieClavier(char caractereClavier){
 		nomProfil[i-1] = '\0';
 	}	
 }
-

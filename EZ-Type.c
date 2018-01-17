@@ -1,13 +1,8 @@
-#include <stdio.h>
-// Librairie GfxLib
-#ifndef GFXLIB_H
-	#include "GfxLib/GfxLib.h"
-	#define GFXLIB_H
-#endif
+#include <stdlib.h>
+#include <time.h>
+#include "GfxLib/GfxLib.h"
 #include "GfxLib/BmpLib.h"
-// Librairie perso
 #include "menu.h"
-
 #include "moteur/inputGame.h"
 #include "moteur/displayGame.h"
 #include "moteur/updateGame.h"
@@ -15,6 +10,7 @@
 void gestionEvenement(EvenementGfx event);
 
 int main(int argc, char *argv[]){
+	srand(time(NULL));
 	initialiseGfx(argc, argv);
 	prepareFenetreGraphique("EZ-Type", 800, 600);
 	lanceBoucleEvenements();
@@ -38,8 +34,8 @@ void gestionEvenement(EvenementGfx event){
 			break;
 		case Temporisation:
 			if(gameState() == 1) {
-				smoothKeyboardGame(gameEvent());
-				updateGame(gameEvent());
+				smoothKeyboardGame(getGame());
+				updateGame(getGame());
 			}
 			rafraichisFenetre();
 			break;
@@ -54,7 +50,7 @@ void gestionEvenement(EvenementGfx event){
 			if(menu == 3 || menu == 5)
 				saisieClavier(caractereClavier());
 			if(gameState())
-				keyboardGame(gameEvent());
+				keyboardGame(getGame());
 			if(caractereClavier()=='F' || caractereClavier()=='f'){
 				pleinEcran=!pleinEcran;
 				if(pleinEcran)
