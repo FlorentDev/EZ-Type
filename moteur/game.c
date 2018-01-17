@@ -61,7 +61,7 @@ void nextLevel() {
 	game->level++;
 	game->nbEnemies = game->level * game->level + 4;
 	for(int i = 0; i < game->nbEnemies; i++) {
-		insertQueueEnemy(&game->enemies, createEnemy(largeurFenetre()-getRand(150), 50 + getRand(hauteurFenetre()-100)));
+		insertQueueEnemy(&game->enemies, createEnemy(largeurFenetre() + getRand(100), getRand(hauteurFenetre()-100) + 50));
 	}
 }
 

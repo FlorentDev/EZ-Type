@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "../GfxLib/BmpLib.h"
 #include "enemy.h"
+#include "utils.h"
 
 Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
@@ -10,7 +11,9 @@ Enemy* createEnemy(int x, int y) {
 	newEnemy->speed.speedX = 1;
 	newEnemy->speed.speedY = 1;	
 	newEnemy->life = 100;
-	newEnemy->image = lisBMPRGB("./Images/enemy_1.bmp");
+	char imgName[25];
+	sprintf(imgName, "./Images/enemy_%d.bmp", getRand(3)+1);
+	newEnemy->image = lisBMPRGB(imgName);
 	newEnemy->hitbox.pos = newEnemy->pos;
 	newEnemy->hitbox.width = newEnemy->image->largeurImage;
 	newEnemy->hitbox.height = newEnemy->image->hauteurImage;

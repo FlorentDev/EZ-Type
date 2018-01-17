@@ -44,7 +44,7 @@ void updateGame(Game* game) {
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
 	
-	Bullet* bulletsToDelete[100];
+	Bullet* bulletsToDelete[15];
 	int count = 0;
 	
 	Bullet* bufferBullet = game->bullets;
