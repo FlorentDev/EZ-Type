@@ -72,8 +72,16 @@ void removeBonus(Bonus** list, Bonus** maillon) {
 }
 
 Bonus* bonusBeforeOf(Bonus** list, Bonus* maillon) {
-	Bonus* buffer = *list;
+	if(list==NULL)
+		return NULL;
+	Bullet* buffer = *list;
+	if(buffer == NULL) {
+		return NULL;
+	}
 	while(buffer->nextBonus != maillon) {
+		if(buffer == NULL) {
+			return NULL;
+		}
 		buffer = buffer->nextBonus;
 		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
 		if(buffer == NULL) {

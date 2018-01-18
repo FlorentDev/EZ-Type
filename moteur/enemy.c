@@ -76,8 +76,16 @@ void removeEnemy(Enemy** list, Enemy** maillon) {
 
 // Return the enemy before 'maillon' in the list
 Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
-	Enemy* buffer = *list;
+	if(list==NULL)
+		return NULL;
+	Bullet* buffer = *list;
+	if(buffer == NULL) {
+		return NULL;
+	}
 	while(buffer->nextEnemy != maillon) {
+		if(buffer == NULL) {
+			return NULL;
+		}
 		buffer = buffer->nextEnemy;
 		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
 		if(buffer == NULL) {
