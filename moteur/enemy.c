@@ -8,7 +8,7 @@ Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
 	newEnemy->pos.x = x;
 	newEnemy->pos.y = y;
-	newEnemy->speed.speedX = 1;
+	newEnemy->speed.speedX = 1.5;
 	newEnemy->speed.speedY = 2;	
 	newEnemy->dir.dirX = 1;
 	newEnemy->dir.dirY = 1;
@@ -98,6 +98,8 @@ Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
 void moveEnemy(Enemy* enem) {
 	switch(enem->moveType) {
 		case Vertical:
+			// Move left to enter in the screen
+			moveLeft(&enem->hitbox, &enem->pos, enem->speed);
 			if(enem->dir.dirY == 1) {
 				if(moveUp(&enem->hitbox, &enem->pos, enem->speed) == 0) {
 					enem->dir.dirY = -1;
@@ -123,9 +125,9 @@ void moveEnemy(Enemy* enem) {
 			moveLeft(&enem->hitbox, &enem->pos, enem->speed);
 			moveUp(&enem->hitbox, &enem->pos, enem->speed);
 			enem->speed.speedY += enem->dir.dirY * 0.15;
-			if(enem->speed.speedY > 2.5) {
+			if(enem->speed.speedY >= 3) {
 				enem->dir.dirY = -1;
-			} else if(enem->speed.speedY <= -2.5) {
+			} else if(enem->speed.speedY <= -2.0) {
 				enem->dir.dirY = 1;
 			}
 			break;
