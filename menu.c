@@ -118,7 +118,7 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
 		stringcpy(message, "Retour au menu principal");
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
-		sprintf(message, "Score : %d", profil(0,NULL, 0));
+		sprintf(message, "Score : %d", profil(3,NULL, 0));
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.45);
 		sprintf(array_score, "%d", getGame()->score); //affichage du score
 	}
