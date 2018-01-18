@@ -50,6 +50,11 @@ void menuPrint(int menu){
 		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 		libereDonneesImageRGB(&image);
+		char skinName[50];
+		sprintf(skinName, "./Images/spaceship-%s.bmp", vaisseau(0));
+		DonneesImageRGB *spaceshipImg = lisBMPRGB(skinName);
+		ecrisImage(largeurFenetre()/2+120, hauteurFenetre()/2+70, spaceshipImg->largeurImage, spaceshipImg->hauteurImage, spaceshipImg->donneesRGB);
+		libereDonneesImageRGB(&spaceshipImg);
 		stringcpy(message, "EZ-Type");
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*3/4);
 		stringcpy(message, "Vaisseau :");
