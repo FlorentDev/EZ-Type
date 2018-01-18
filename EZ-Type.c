@@ -41,10 +41,14 @@ void gestionEvenement(EvenementGfx event){
 			break;
 		case Affichage:
 			effaceFenetre(0, 0, 0);
-			if(menu)
+			if(menu) {
+				demandeTemporisation(200);
 				menuPrint(menu);
-			if(gameState() == 1)
+			}
+			if(gameState() == 1) {
+				demandeTemporisation(20);
 				displayGame();
+			}
 			break;
 		case Clavier:
 			if(menu == 3 || menu == 5)
