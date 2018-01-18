@@ -16,6 +16,7 @@ void startGame(int begin){
 	game = initGame();
 	gamestate = begin;
 	startSound("music/music.mp3");
+	reinitialiserTouches();
 }
 
 Game* initGame() {

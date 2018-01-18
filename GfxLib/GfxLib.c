@@ -256,6 +256,12 @@ static void prepareFenetre_En_DeTaille(const char *nom, int xCoinHautGauche, int
 	glReadBuffer(GL_FRONT); */
 }
 
+void reinitialiserTouches() {
+	for(int i = 0; i < 255; i++) {
+		touchesAppuyees[i] = false;
+	}
+}
+
 // Lance la boucle de gestion des evenements
 void lanceBoucleEvenements(void)
 {
