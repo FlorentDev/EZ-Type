@@ -5,6 +5,7 @@
 #include "background.h"
 #include "param.h"
 #include "utils.h"
+#include "../sound.h"
 
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 
@@ -14,6 +15,7 @@ static Game *game;
 void startGame(int begin){
 	game = initGame();
 	gamestate = begin;
+	startSound("music/music.mp3");
 }
 
 Game* initGame() {
@@ -46,6 +48,7 @@ Game* initGame() {
 
 void gamePause(int pause){
 	gamestate = pause;
+	togglePause();
 }
 
 int gameState(){
@@ -61,6 +64,7 @@ void endGame(){
 	profil(2, NULL, getGame()->score);
 	free(game);
 	gamestate = 2;
+	stopSound();
 }
 
 void nextLevel() {
