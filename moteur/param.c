@@ -115,9 +115,11 @@ int profil(int mode, char *id, int nbEnemy){
 				saveId->nbDeadEnemy = score;
 				if(!save(*saveId))
 					printf("Erreur d'enregistrement");
-				score = 0;
 				return 0; // Score save
 			}
+		case 3:
+			return score;
+			break;
 		default:
 			return 0;
 			break;
