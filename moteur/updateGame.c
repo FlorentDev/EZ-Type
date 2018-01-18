@@ -18,13 +18,12 @@ void updateGame(Game* game) {
 	//Move every bonus
 	Bonus* bufferBonus = game->bonuses;	
 	while(bufferBonus != NULL) {
-		moveLeft(&bufferBonus->hitbox, &bufferBonus->pos, bufferBonus->speed);
-		if(checkCollision(game->spaceship.hitbox, bufferBonus->hitbox) == 1) {
-			activateBonus(game, *bufferBonus);
+		//If the bonus is out of screen remove it
+		if(moveLeft(&bufferBonus->hitbox, &bufferBonus->pos, bufferBonus->speed) == 0) {
 			bufferBonus->isDead = 1;
 		}
-		//If the bonus is out of screen remove it
-		if(isOutOfScreen(bufferBonus->hitbox)) {
+		if(checkCollision(game->spaceship.hitbox, bufferBonus->hitbox) == 1) {
+			activateBonus(game, *bufferBonus);
 			bufferBonus->isDead = 1;
 		}
 		bufferBonus = bufferBonus->nextBonus;
@@ -71,7 +70,7 @@ void updateGame(Game* game) {
 				bufferBullet->isDead = 1;
 				//If the enemy is dead, remove it
 				if(bufferEnemy->life <= 0) {
-					if(getRand(25) == 0) {
+					if(getRand(2) == 0) {
 						switch(getRand(5)) {
 							case 0:
 								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotSpeed));
