@@ -32,7 +32,9 @@ Game* initGame() {
 	game->spaceship.bulletSpeed.speedX = 17.5;
 	game->spaceship.bulletSpeed.speedY = 5;
 	game->spaceship.shotNb = 1;
-	game->spaceship.image = lisBMPRGB("./Images/ship.bmp");
+	char skinName[50];
+	sprintf(skinName, "./Images/spaceship-%s.bmp", vaisseau(0));
+	game->spaceship.image = lisBMPRGB(skinName);
 	game->spaceship.hitbox.pos = game->spaceship.pos;
 	game->spaceship.hitbox.width = game->spaceship.image->largeurImage;
 	game->spaceship.hitbox.height = game->spaceship.image->hauteurImage;
