@@ -6,7 +6,7 @@
 #include "../GfxLib/GfxLib.h"
 
 int moveUp(Hitbox* hitbox, Position* pos, Speed speed) {
-	if(pos->y + hitbox->height < hauteurFenetre()) {
+	if(pos->y <= hauteurFenetre()) {
 		pos->y += speed.speedY;
 		hitbox->pos.y = pos->y;
 		return 1;
@@ -33,7 +33,7 @@ int moveLeft(Hitbox* hitbox, Position* pos, Speed speed) {
 }
 
 int moveRight(Hitbox* hitbox, Position* pos, Speed speed) {
-	if(pos->x + hitbox->width <= largeurFenetre()) {
+	if(pos->x <= largeurFenetre()) {
 		pos->x += speed.speedX;
 		hitbox->pos.x = pos->x;
 		return 1;
@@ -55,9 +55,9 @@ int checkCollision(Hitbox hitbox1, Hitbox hitbox2) {
 // Return 1 if the hitbox is in the screen, false otherwise
 int isOutOfScreen(Hitbox hitbox) {
 	Hitbox widow;
-	widow.pos.x = 0;
-	widow.pos.y = 0;
-	widow.width = largeurFenetre() - hitbox.width;
-	widow.height = hauteurFenetre();	
+	widow.pos.x = hitbox.width + 5;
+	widow.pos.y = hitbox.height + 5;
+	widow.width = largeurFenetre() - 2*widow.pos.x;
+	widow.height = hauteurFenetre() - 2*widow.pos.y;
 	return checkCollision(widow, hitbox) == 0;
 }

@@ -3,6 +3,7 @@
 
 Bonus* createBonus(int x, int y, BonusType type) {
 	Bonus* newBonus = malloc(sizeof(Bonus));
+	newBonus->isDead = 0;
 	newBonus->pos.x = x;
 	newBonus->pos.y = y;
 	newBonus->speed.speedX = 5;
@@ -49,44 +50,4 @@ void insertQueueBonus(Bonus** list, Bonus* maillon) {
 	} else {
 		getLastBonus(*list)->nextBonus=maillon;
 	}
-}
-
-void removeBonus(Bonus** list, Bonus** maillon) {
-	Bonus* bonusBefore = bonusBeforeOf(list, *maillon);
-	// If maillon is the first element in the list...
-	if(bonusBefore == NULL) {
-		//.. and he has no bullet next, it's the only element in the list
-		if((*maillon)->nextBonus == NULL) {
-			*list = NULL;
-		} 
-		//...and it has a bullet next, the next element becomes the head of the list
-		else {
-			*list = (*maillon)->nextBonus;
-		}
-	} 
-	// ... else if it's a bullet in the list
-	else {
-		bonusBefore->nextBonus = (*maillon)->nextBonus;
-	}
-	free(*maillon);
-}
-
-Bonus* bonusBeforeOf(Bonus** list, Bonus* maillon) {
-	if(list==NULL)
-		return NULL;
-	Bonus* buffer = *list;
-	if(buffer == NULL) {
-		return NULL;
-	}
-	while(buffer->nextBonus != maillon) {
-		if(buffer == NULL) {
-			return NULL;
-		}
-		buffer = buffer->nextBonus;
-		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
-		if(buffer == NULL) {
-			return NULL;
-		}
-	}
-	return buffer;
 }

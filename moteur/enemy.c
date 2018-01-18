@@ -6,6 +6,7 @@
 
 Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
+	newEnemy->isDead = 0;
 	newEnemy->pos.x = x;
 	newEnemy->pos.y = y;
 	newEnemy->speed.speedX = 1.5;
@@ -50,49 +51,6 @@ void insertQueueEnemy(Enemy** list, Enemy* maillon) {
 	} else {
 		getLastEnemy(*list)->nextEnemy=maillon;
 	}
-}
-
-// Remove enemy from the list
-void removeEnemy(Enemy** list, Enemy** maillon) {
-	Enemy* enemyBefore = enemyBeforeOf(list, *maillon);
-	// If maillon is the first element in the list...
-	if(enemyBefore == NULL) {
-		//.. and he has no bullet next, it's the only element in the list
-		if((*maillon)->nextEnemy == NULL) {
-			*list = NULL;
-		} 
-		//...and it has a bullet next, the next element becomes the head of the list
-		else {
-			*list = (*maillon)->nextEnemy;
-		}
-	} 
-	// ... else if it's a bullet in the list
-	else {
-		enemyBefore->nextEnemy = (*maillon)->nextEnemy;
-	}
-	libereDonneesImageRGB(&(*maillon)->image);
-	free(*maillon);
-}
-
-// Return the enemy before 'maillon' in the list
-Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
-	if(list==NULL)
-		return NULL;
-	Enemy* buffer = *list;
-	if(buffer == NULL) {
-		return NULL;
-	}
-	while(buffer->nextEnemy != maillon) {
-		if(buffer == NULL) {
-			return NULL;
-		}
-		buffer = buffer->nextEnemy;
-		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
-		if(buffer == NULL) {
-			return NULL;
-		}
-	}
-	return buffer;
 }
 
 void moveEnemy(Enemy* enem) {

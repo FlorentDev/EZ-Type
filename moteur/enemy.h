@@ -13,6 +13,7 @@ typedef struct enemy {
 	Speed speed;
 	Hitbox hitbox;
 	Direction dir;
+	int isDead;
 	MovementType moveType;
 	int life;
 	DonneesImageRGB* image;
@@ -24,9 +25,5 @@ Enemy* createEnemy(int x, int y);
 Enemy* getLastEnemy(Enemy* list);
 
 void insertQueueEnemy(Enemy** list, Enemy* maillon);
-
-void removeEnemy(Enemy** list, Enemy** maillon);
-
-Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon);
 
 void moveEnemy(Enemy* enemy);
