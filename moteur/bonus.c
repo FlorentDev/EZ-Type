@@ -74,7 +74,7 @@ void removeBonus(Bonus** list, Bonus** maillon) {
 Bonus* bonusBeforeOf(Bonus** list, Bonus* maillon) {
 	if(list==NULL)
 		return NULL;
-	Bullet* buffer = *list;
+	Bonus* buffer = *list;
 	if(buffer == NULL) {
 		return NULL;
 	}

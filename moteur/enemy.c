@@ -78,7 +78,7 @@ void removeEnemy(Enemy** list, Enemy** maillon) {
 Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
 	if(list==NULL)
 		return NULL;
-	Bullet* buffer = *list;
+	Enemy* buffer = *list;
 	if(buffer == NULL) {
 		return NULL;
 	}
