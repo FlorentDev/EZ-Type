@@ -51,13 +51,3 @@ int checkCollision(Hitbox hitbox1, Hitbox hitbox2) {
 	}
 	return 0;
 }
-
-// Return 1 if the hitbox is in the screen, false otherwise
-int isOutOfScreen(Hitbox hitbox) {
-	Hitbox widow;
-	widow.pos.x = hitbox.width + 5;
-	widow.pos.y = hitbox.height + 5;
-	widow.width = largeurFenetre() - 2*widow.pos.x;
-	widow.height = hauteurFenetre() - 2*widow.pos.y;
-	return checkCollision(widow, hitbox) == 0;
-}
