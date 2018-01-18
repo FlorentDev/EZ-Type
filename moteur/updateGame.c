@@ -3,6 +3,7 @@
 	#include "entity.h"
 #endif
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "../GfxLib/GfxLib.h"
 #include "utils.h"
@@ -36,8 +37,8 @@ void updateGame(Game* game) {
 	//Move every enemy
 	Enemy* bufferEnemy = game->enemies;	
 	while(bufferEnemy != NULL) {
-		moveLeft(&bufferEnemy->hitbox, &bufferEnemy->pos, bufferEnemy->speed);
-		//Each enemy has 1 out of 200 opportunity to shoot
+		moveEnemy(bufferEnemy);
+		//Each enemy has 1 out of 150 opportunity to shoot
 		if(getRand(150) == 0) {
 			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos.x, bufferEnemy->pos.y, -1));
 		}

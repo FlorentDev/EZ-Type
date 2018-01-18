@@ -17,6 +17,8 @@ void startGame(int begin){
 Game* initGame() {
 	Game* game = malloc(sizeof(Game));
 	game->score = 0;
+	game->level = 0;
+	game->nbEnemies = 0;
 	game->spaceship.pos.x = largeurFenetre()*0.20;
 	game->spaceship.pos.y = hauteurFenetre()/2;
 	game->spaceship.speed.speedX = 10;
@@ -34,7 +36,6 @@ Game* initGame() {
 	game->bullets = NULL;
 	game->enemies = NULL;
 	game->bonuses = NULL;
-	game->level = 0;
 	return game;
 }
 
