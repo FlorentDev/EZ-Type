@@ -53,6 +53,7 @@ Game* getGame(){
 
 void endGame(){
 	freeBackground();
+	profil(2, NULL, getGame()->score);
 	free(game);
 	gamestate = 2;
 }
