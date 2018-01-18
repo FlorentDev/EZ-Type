@@ -106,6 +106,8 @@ typedef struct
 // Pour initialiser la partie graphie de la bibliotheque
 void initialiseGfx(int argc, char **argv);
 
+void reinitialiserTouches();
+
 /* Prepare une fenetre en specifiant son nom, sa largeur et sa hauteur.
    La fenetre presente un repere orthonorme classique (premier quadrant),
    de largeur pixels sur hauteur pixels */
