@@ -169,9 +169,9 @@ void menuPrint(int menu){
 		stringcpy(message, nomProfil);
 		afficheChaine(message, 30, largeurFenetre()/2, hauteurFenetre()*0.6);
 		stringcpy(message, "Valider");
-		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25+50);
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)-25, hauteurFenetre()*0.25+50);
 		stringcpy(message, "Quitter");
-		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
+		afficheChaine(message, 30, largeurFenetre()/2+25, hauteurFenetre()*0.25+50);
 	}
 }
 ;
@@ -279,7 +279,6 @@ void menuClick(int *menu){
 		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25 && ordonneeSouris() < hauteurFenetre()*0.25 + 40){
 			if(profil(0, NULL, 0)==0){
 				*menu = 8;
-				newGame = 1;
 			}
 			else{
 				*menu = 1;
@@ -309,19 +308,25 @@ void menuClick(int *menu){
 	// Menu profil after game over
 	if(*menu == 8){
 		stringcpy(message, "Valider");
-		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25+100 && ordonneeSouris() < hauteurFenetre()*0.25+50){
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) - 25 && abscisseSouris() < largeurFenetre()/2 -25 && ordonneeSouris() > hauteurFenetre()*0.25+50 && ordonneeSouris() < hauteurFenetre()*0.25+100){
 			profil(1, nomProfil, 0);
 			profil(2, NULL, getGame()->score);
-			*menu = 0;
 			Score save;
 			stringcpy(save.name, nomProfil);
 			save.score = profil(0, NULL, 0);
 			if(!saveScore(save))
 				printf("Echec d'enregistrement");
-			startGame(1);
+			if(newGame){
+				startGame(1);
+				newGame = 0;
+				*menu = 0;
+			}
+			else{
+				*menu = 1;
+			}
 		}
 		stringcpy(message, "Quitter");
-		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.23 && ordonneeSouris() < hauteurFenetre()*0.23 + 40){
+		if(abscisseSouris() > largeurFenetre()/2 + 25 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) + 25 && ordonneeSouris() > hauteurFenetre()*0.25+50 && ordonneeSouris() < hauteurFenetre()*0.25 + 100){
 			*menu = 1;
 		}
 	}
