@@ -9,7 +9,9 @@ Enemy* createEnemy(int x, int y) {
 	newEnemy->pos.x = x;
 	newEnemy->pos.y = y;
 	newEnemy->speed.speedX = 1;
-	newEnemy->speed.speedY = 1;	
+	newEnemy->speed.speedY = 2;	
+	newEnemy->dir.dirX = 1;
+	newEnemy->dir.dirY = 1;
 	newEnemy->life = 100;
 	char imgName[25];
 	sprintf(imgName, "./Images/enemy_%d.bmp", getRand(3)+1);
@@ -18,6 +20,17 @@ Enemy* createEnemy(int x, int y) {
 	newEnemy->hitbox.width = newEnemy->image->largeurImage;
 	newEnemy->hitbox.height = newEnemy->image->hauteurImage;
 	newEnemy->nextEnemy = NULL;	
+	switch(getRand(3)) {
+		case 0:
+			newEnemy->moveType = Vertical;
+			break;
+		case 1:
+			newEnemy->moveType = Horizontal;	
+			break;
+		case 2:
+			newEnemy->moveType = Sine;
+			break;
+	}
 	return newEnemy;
 }
 
@@ -71,4 +84,41 @@ Enemy* enemyBeforeOf(Enemy** list, Enemy* maillon) {
 		}
 	}
 	return buffer;
+}
+
+void moveEnemy(Enemy* enem) {
+	switch(enem->moveType) {
+		case Vertical:
+			if(enem->dir.dirY == 1) {
+				if(moveUp(&enem->hitbox, &enem->pos, enem->speed) == 0) {
+					enem->dir.dirY = -1;
+				}
+			} else {
+				if(moveDown(&enem->hitbox, &enem->pos, enem->speed) == 0) {
+					enem->dir.dirY = 1;
+				}
+			}
+			break;
+		case Horizontal:
+			if(enem->dir.dirX == 1) {
+				if(moveLeft(&enem->hitbox, &enem->pos, enem->speed) == 0) {
+					enem->dir.dirX = -1;
+				}
+			} else {
+				if(moveRight(&enem->hitbox, &enem->pos, enem->speed) == 0) {
+					enem->dir.dirX = 1;
+				}
+			}
+			break;
+		case Sine:
+			moveLeft(&enem->hitbox, &enem->pos, enem->speed);
+			moveUp(&enem->hitbox, &enem->pos, enem->speed);
+			enem->speed.speedY += enem->dir.dirY * 0.15;
+			if(enem->speed.speedY > 2.5) {
+				enem->dir.dirY = -1;
+			} else if(enem->speed.speedY <= -2.5) {
+				enem->dir.dirY = 1;
+			}
+			break;
+	}	
 }

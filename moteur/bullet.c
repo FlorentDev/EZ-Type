@@ -8,7 +8,7 @@ Bullet* createBullet(int x, int y, int dir) {
 	newBullet->pos.x = x;
 	newBullet->pos.y = y;
 	newBullet->speed.speedX = dir*15;
-	newBullet->speed.speedY = (getRand(2) == 0 ? 1 : -1) * getRand(4);
+	newBullet->speed.speedY = dir == -1 ? 0 : (getRand(2) == 0 ? 1 : -1) * getRand(4);
 	if(dir == 1) {
 		newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
 	} else {

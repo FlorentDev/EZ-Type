@@ -43,13 +43,13 @@ void gestionEvenement(EvenementGfx event){
 			effaceFenetre(0, 0, 0);
 			if(menu)
 				menuPrint(menu);
-			if(gameState())
+			if(gameState() == 1)
 				displayGame();
 			break;
 		case Clavier:
 			if(menu == 3 || menu == 5)
 				saisieClavier(caractereClavier());
-			if(gameState())
+			if(gameState() == 1)
 				keyboardGame(getGame());
 			if(caractereClavier()=='F' || caractereClavier()=='f'){
 				pleinEcran=!pleinEcran;

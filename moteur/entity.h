@@ -4,8 +4,8 @@ typedef struct {
 } Position;
 
 typedef struct {
-	int speedX;
-	int speedY;
+	float speedX;
+	float speedY;
 } Speed;
 
 typedef struct {
@@ -15,13 +15,19 @@ typedef struct {
 	int height;
 } Hitbox;
 
-void moveUp(Hitbox* hitbox, Position* pos, Speed speed);
+typedef struct {
+	int dirX;
+	int dirY;
+} Direction;
 
-void moveDown(Hitbox* hitbox, Position* pos, Speed speed);
+/* All the 'move' methods return 1 if the movement could be done, 0 otherwise */
+int moveUp(Hitbox* hitbox, Position* pos, Speed speed);
 
-void moveLeft(Hitbox* hitbox, Position* pos, Speed speed);
+int moveDown(Hitbox* hitbox, Position* pos, Speed speed);
 
-void moveRight(Hitbox* hitbox, Position* pos, Speed speed);
+int moveLeft(Hitbox* hitbox, Position* pos, Speed speed);
+
+int moveRight(Hitbox* hitbox, Position* pos, Speed speed);
 
 int checkCollision(Hitbox hitbox1, Hitbox hitbox2);
 

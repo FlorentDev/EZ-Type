@@ -5,32 +5,40 @@
 #include <stdio.h>
 #include "../GfxLib/GfxLib.h"
 
-void moveUp(Hitbox* hitbox, Position* pos, Speed speed) {
+int moveUp(Hitbox* hitbox, Position* pos, Speed speed) {
 	if(pos->y + hitbox->height < hauteurFenetre()) {
 		pos->y += speed.speedY;
 		hitbox->pos.y = pos->y;
+		return 1;
 	}
+	return 0;
 }
 
-void moveDown(Hitbox* hitbox, Position* pos, Speed speed) {
+int moveDown(Hitbox* hitbox, Position* pos, Speed speed) {
 	if(pos->y > 0) {
 		pos->y -= speed.speedY;
 		hitbox->pos.y = pos->y;
+		return 1;
 	}
+	return 0;
 }
 
-void moveLeft(Hitbox* hitbox, Position* pos, Speed speed) {
+int moveLeft(Hitbox* hitbox, Position* pos, Speed speed) {
 	if(pos->x > 0) {
 		pos->x -= speed.speedX;
 		hitbox->pos.x = pos->x;
+		return 1;
 	}
+	return 0;
 }
 
-void moveRight(Hitbox* hitbox, Position* pos, Speed speed) {
+int moveRight(Hitbox* hitbox, Position* pos, Speed speed) {
 	if(pos->x < largeurFenetre()) {
 		pos->x += speed.speedX;
 		hitbox->pos.x = pos->x;
+		return 1;
 	}
+	return 0;
 }
 
 //Return 1 if two hitboxes are colliding, 0 otherwise
