@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "../Sauvegarde/sauvegarde.h"
 
-typedef enum {Defaut, Terminator, MichelATord, FoconMillenium}
+typedef enum {Defaut, Terminator, MichelATord, FoconMillenium, Observer}
 	spaceShipSkin;
 
 static int son = 1;
@@ -23,6 +23,9 @@ char *vaisseau(int number){
 				vaisseau = FoconMillenium;
 				break;
 			case FoconMillenium:
+				vaisseau = Observer;
+				break;
+			case Observer:
 				vaisseau = Defaut;
 				break;
 		}
@@ -30,7 +33,7 @@ char *vaisseau(int number){
 	if(number==-1){
 		switch(vaisseau){
 			case Defaut:
-				vaisseau = FoconMillenium;
+				vaisseau = Observer;
 				break;
 			case Terminator:
 				vaisseau = Defaut;
@@ -40,6 +43,9 @@ char *vaisseau(int number){
 				break;
 			case FoconMillenium:
 				vaisseau = MichelATord;
+				break;
+			case Observer:
+				vaisseau = FoconMillenium;
 				break;
 		}
 	}
@@ -56,6 +62,9 @@ char *vaisseau(int number){
 				break;
 			case FoconMillenium:
 				return "FauconMillenium";
+				break;
+			case Observer:
+				return "Observer";
 				break;
 		}
 	}
