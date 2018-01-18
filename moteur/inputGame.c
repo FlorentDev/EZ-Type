@@ -3,6 +3,7 @@
 	#include "entity.h"
 #endif
 
+#include <stdio.h>
 #include "utils.h"
 #include "game.h"
 #include "../GfxLib/GfxLib.h"

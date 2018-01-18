@@ -6,15 +6,9 @@
 
 #ifdef __APPLE__
 	#define COMMAND_PLAY "afplay %s &"
-#endif
-#ifdef __LINUX__
-	#define COMMAND_PLAY "rhythmbox-client --repeat --no-present --play-uri=%s"
-#endif
-
-#ifdef __APPLE__
 	#define COMMAND_STOP "killall afplay"
-#endif
-#ifdef __LINUX__
+#else
+	#define COMMAND_PLAY "rhythmbox-client --repeat --no-present --play-uri=%s"
 	#define COMMAND_STOP "rhythmbox-client --quit"
 #endif
 
@@ -22,7 +16,7 @@
 
 void startSound(char *name){
 	char cmd[255];
-	sprintf(cmd, "%s %s", COMMAND_PLAY, name);
+	sprintf(cmd, COMMAND_PLAY, name);
 	system(cmd);
 }
 

@@ -16,6 +16,8 @@ void updateGame(Game* game) {
 	}
 
 	int hasBonusBeenDeleted = 0;
+	int hasBulletBeenDeleted = 0;
+	int hasEnemyBeenDeleted = 0;
 	
 	//Move every bonus
 	Bonus* bufferBonus = game->bonuses;	
@@ -42,8 +44,18 @@ void updateGame(Game* game) {
 		if(getRand(150) == 0) {
 			Speed bulletSpeed;
 			bulletSpeed.speedX = -15;
-			bulletSpeed.speedY = 15;
+			bulletSpeed.speedY = 0;
 			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos, bulletSpeed));
+		}
+		
+		if(hasEnemyBeenDeleted == 0 && checkCollision(game->spaceship.hitbox, bufferEnemy->hitbox)) {
+			game->spaceship.life -= 40;
+			if(game->spaceship.life <= 0) {
+				endGame();
+			}
+			removeEnemy(&game->enemies, &bufferEnemy);
+			hasEnemyBeenDeleted = 1;
+			game->nbEnemies--;
 		}
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
@@ -54,8 +66,8 @@ void updateGame(Game* game) {
 	Bullet* bufferBullet = game->bullets;
 	while(bufferBullet != NULL) {	
 		//FIXME: If the bullet touched two enemies at the same time, it's deleted two times in a row (which core dump)
-		int hasBulletBeenDeleted = 0;
-		int hasEnemyBeenDeleted = 0;
+		hasBulletBeenDeleted = 0;
+		hasEnemyBeenDeleted = 0;
 		
 		//FIXME: Ugly hack, this should be improved to check out screen detection
 		//Move every bullet
@@ -84,7 +96,7 @@ void updateGame(Game* game) {
 				}
 				//If the enemy is dead, remove it
 				if(hasEnemyBeenDeleted == 0 && bufferEnemy->life <= 0) {
-					if(getRand(2) == 0) {
+					if(getRand(25) == 0) {
 						switch(getRand(5)) {
 							case 0:
 								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotSpeed));

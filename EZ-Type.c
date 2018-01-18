@@ -49,15 +49,15 @@ void gestionEvenement(EvenementGfx event){
 		case Clavier:
 			if(menu == 3 || menu == 5)
 				saisieClavier(caractereClavier());
-			if(gameState() == 1)
-				keyboardGame(getGame());
-			if(caractereClavier()=='F' || caractereClavier()=='f'){
+			else if(caractereClavier()=='F' || caractereClavier()=='f'){
 				pleinEcran=!pleinEcran;
 				if(pleinEcran)
 						modePleinEcran();
 				else
 					redimensionneFenetre(800, 600);
 			}
+			if(gameState() == 1)
+				keyboardGame(getGame());
 			break;
 		case ClavierRelache:
 			break;
