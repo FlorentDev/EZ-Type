@@ -31,6 +31,16 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()/2-130);
 		stringcpy(message, "Quitter");
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()/2-180);
+		stringcpy(message, "Leaderboard :");
+		afficheChaine(message, 30, 10, 50 * 6);
+		Score *scores;
+		scores = getScores();
+		int i;
+		for(i=0; i<5; i++){
+			sprintf(message, "%s %d", scores[i].name, scores[i].score);
+			if(scores[i].score!=0)
+				afficheChaine(message, 30, 10, 50 * (5-i));
+		}
 	}
 	// Menu option
 	if(menu==2){
