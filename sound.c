@@ -4,12 +4,16 @@
 **	Developper par Florent SALOU
 **/
 
+#include <stdio.h>
+
 #ifdef __APPLE__
 	#define COMMAND_PLAY "afplay %s &"
 	#define COMMAND_STOP "killall afplay"
+	#define COMMAND_PAUSE ""
 #else
-	#define COMMAND_PLAY "rhythmbox-client --repeat --no-present --play-uri=%s"
-	#define COMMAND_STOP "rhythmbox-client --quit"
+	#define COMMAND_PLAY "rhythmbox-client --repeat --no-present --clear-queue --play-uri=%s"
+	#define COMMAND_STOP "rhythmbox-client --stop"
+	#define COMMAND_PAUSE "rhythmbox-client --play-pause"
 #endif
 
 #include <stdlib.h>
@@ -22,4 +26,8 @@ void startSound(char *name){
 
 void stopSound(void){
 	system(COMMAND_STOP);
+}
+
+void togglePause(void){
+	system(COMMAND_PAUSE);
 }
