@@ -13,11 +13,13 @@
 
 static char nomProfil[20];
 static char array_score[20];
+static int newGame = 0;
 
 void menuPrint(int menu){
 	char message[255];
 	// Menu principal
 	if(menu==1){
+		profil(2, NULL, 0);
 		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 		libereDonneesImageRGB(&image);
@@ -156,6 +158,7 @@ void menuPrint(int menu){
 	}
 	// Menu profil after game over
 	if(menu == 8){
+		profil(0, NULL, 0);
 		DonneesImageRGB *image = lisBMPRGB("Images/menu.bmp");
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB); 
 		libereDonneesImageRGB(&image);
@@ -165,8 +168,8 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30), hauteurFenetre()*0.6);
 		stringcpy(message, nomProfil);
 		afficheChaine(message, 30, largeurFenetre()/2, hauteurFenetre()*0.6);
-		stringcpy(message, "valider");
-		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
+		stringcpy(message, "Valider");
+		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25+50);
 		stringcpy(message, "Quitter");
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
 	}
@@ -262,8 +265,10 @@ void menuClick(int *menu){
 	if(*menu == 6){
 		stringcpy(message, "Nouvelle partie");
 		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){
-			if(profil(2, NULL, getGame()->score))
+			if(profil(0, NULL, 0)==0){
 				*menu = 8;
+				newGame = 1;
+			}
 			else{
 				*menu = 0;
 				startGame(1);
@@ -272,12 +277,18 @@ void menuClick(int *menu){
 		}
 		stringcpy(message, "Retour au menu principal");
 		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25 && ordonneeSouris() < hauteurFenetre()*0.25 + 40){
-			*menu = 1;
-			Score save;
-			stringcpy(save.name, nomProfil);
-			save.score = profil(0, NULL, 0);
+			if(profil(0, NULL, 0)==0){
+				*menu = 8;
+				newGame = 1;
+			}
+			else{
+				*menu = 1;
+				Score save;
+				stringcpy(save.name, nomProfil);
+				save.score = profil(0, NULL, 0);
 				if(!saveScore(save))
 					printf("Echec d'enregistrement");
+			}
 		}
 	}
 	// Menu new game
@@ -297,8 +308,8 @@ void menuClick(int *menu){
 	}
 	// Menu profil after game over
 	if(*menu == 8){
-		stringcpy(message, "valider");
-		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()/2 + 40){
+		stringcpy(message, "Valider");
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() < hauteurFenetre()*0.25+100 && ordonneeSouris() > hauteurFenetre()*0.25+50){
 			profil(1, nomProfil, 0);
 			profil(2, NULL, getGame()->score);
 			*menu = 0;

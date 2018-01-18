@@ -51,7 +51,7 @@ void gestionEvenement(EvenementGfx event){
 			}
 			break;
 		case Clavier:
-			if(menu == 3 || menu == 5)
+			if(menu == 3 || menu == 5 || menu == 8)
 				saisieClavier(caractereClavier());
 			else if(caractereClavier()=='F' || caractereClavier()=='f'){
 				pleinEcran=!pleinEcran;
