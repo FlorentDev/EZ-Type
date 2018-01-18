@@ -118,7 +118,7 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()*0.4);
 		stringcpy(message, "Retour au menu principal");
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.25);
-		sprintf(message, "Score : %d", getGame()->score);
+		sprintf(message, "Score : %d", profil(0,NULL, 0));
 		afficheChaine(message, 30, largeurFenetre()/2 - tailleChaine(message, 30)/2, hauteurFenetre()*0.45);
 		sprintf(array_score, "%d", getGame()->score); //affichage du score
 	}
@@ -248,19 +248,18 @@ void menuClick(int *menu){
 				*menu = 8;
 			else{
 				*menu = 0;
-				Score save;
-				stringcpy(save.name, nomProfil);
-				save.score = profil(0, NULL, 0);
-				if(!saveScore(save))
-					printf("Echec d'enregistrement");
 				startGame(1);
+				getGame()->score = profil(0, NULL, 0);
 			}
 		}
 		stringcpy(message, "Retour au menu principal");
 		if(abscisseSouris() > largeurFenetre()/2-tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2+tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25 && ordonneeSouris() < hauteurFenetre()*0.25 + 40){
-			*menu = 0;
-			startGame(1);
-			getGame()->score = profil(0, NULL, 0);
+			*menu = 1;
+			Score save;
+			stringcpy(save.name, nomProfil);
+			save.score = profil(0, NULL, 0);
+				if(!saveScore(save))
+					printf("Echec d'enregistrement");
 		}
 	}
 	// Menu new game
@@ -296,6 +295,8 @@ void menuClick(int *menu){
 			*menu = 1;
 		}
 	}
+	// Menu multijoueur
+	// Si on a le temps
 }
 
 void saisieClavier(char caractereClavier){
