@@ -62,8 +62,16 @@ void removeBullet(Bullet** list, Bullet** maillon) {
 
 // Return the bullet before 'maillon' in the list
 Bullet* bulletBeforeOf(Bullet** list, Bullet* maillon) {
+	if(list==NULL)
+		return NULL;
 	Bullet* buffer = *list;
+	if(buffer == NULL) {
+		return NULL;
+	}
 	while(buffer->nextBullet != maillon) {
+		if(buffer == NULL) {
+			return NULL;
+		}
 		buffer = buffer->nextBullet;
 		//If there is only one element in the list, buffer is NULL and will Core Dump on nextBullet
 		if(buffer == NULL) {
