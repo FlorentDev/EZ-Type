@@ -16,10 +16,13 @@ Bonus* createBonus(int x, int y, BonusType type) {
 			newBonus->image = lisBMPRGB("./Images/bonus_shield.bmp");
 			break;
 		case IncreaseShotSpeed:
-			newBonus->image = lisBMPRGB("./Images/bonus_shield.bmp");
+			newBonus->image = lisBMPRGB("./Images/bonus_rapid_fire.bmp");
 			break;
 		case IncreaseShotNb:
 			newBonus->image = lisBMPRGB("./Images/bonus_shield.bmp");
+			break;
+		case IncreaseDamage:
+			newBonus->image = lisBMPRGB("./Images/bonus_damage_up.bmp");
 			break;
 	}
 	newBonus->hitbox.pos = newBonus->pos;

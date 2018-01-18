@@ -5,7 +5,7 @@
 
 #include "../GfxLib/BmpLib.h"
 
-typedef enum {RegenerateLife, Shield, IncreaseShotSpeed, IncreaseShotNb}
+typedef enum {RegenerateLife, Shield, IncreaseShotSpeed, IncreaseDamage, IncreaseShotNb}
 	BonusType;
 
 typedef struct bonus {

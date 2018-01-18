@@ -40,7 +40,10 @@ void updateGame(Game* game) {
 		moveEnemy(bufferEnemy);
 		//Each enemy has 1 out of 150 opportunity to shoot
 		if(getRand(150) == 0) {
-			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos.x, bufferEnemy->pos.y, -1));
+			Speed bulletSpeed;
+			bulletSpeed.speedX = -15;
+			bulletSpeed.speedY = 15;
+			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos, bulletSpeed));
 		}
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
@@ -81,8 +84,8 @@ void updateGame(Game* game) {
 				}
 				//If the enemy is dead, remove it
 				if(hasEnemyBeenDeleted == 0 && bufferEnemy->life <= 0) {
-					if(getRand(20) == 0) {
-						switch(getRand(4)) {
+					if(getRand(2) == 0) {
+						switch(getRand(5)) {
 							case 0:
 								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotSpeed));
 								break;
@@ -94,7 +97,9 @@ void updateGame(Game* game) {
 								break;
 							case 3:
 								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, Shield));
-								break;	
+								break;
+							case 4:
+								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseDamage));
 						}
 					}
 					game->score += 50;
@@ -108,7 +113,12 @@ void updateGame(Game* game) {
 		}
 
 		if(bufferBullet->speed.speedX < 0 && checkCollision(bufferBullet->hitbox, game->spaceship.hitbox) == 1) {
-			game->spaceship.life -= 20;
+			if(game->spaceship.shield > 0) {
+				game->spaceship.shield -= 20;
+			}
+			else {
+				game->spaceship.life -= 20;
+			}
 			if(hasBulletBeenDeleted == 0) {
 				bulletsToDelete[count] = bufferBullet;
 				count++;

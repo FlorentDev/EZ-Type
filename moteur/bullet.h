@@ -13,7 +13,7 @@ typedef struct bullet {
 	struct bullet *nextBullet;
 } Bullet; 
 
-Bullet* createBullet(int x, int y, int dir);
+Bullet* createBullet(Position pos, Speed speed);
 
 Bullet* getLastBullet(Bullet* list);
 

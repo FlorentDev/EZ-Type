@@ -70,6 +70,7 @@ void removeEnemy(Enemy** list, Enemy** maillon) {
 	else {
 		enemyBefore->nextEnemy = (*maillon)->nextEnemy;
 	}
+	libereDonneesImageRGB(&(*maillon)->image);
 	free(*maillon);
 }
 
