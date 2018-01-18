@@ -309,7 +309,7 @@ void menuClick(int *menu){
 	// Menu profil after game over
 	if(*menu == 8){
 		stringcpy(message, "Valider");
-		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() < hauteurFenetre()*0.25+100 && ordonneeSouris() > hauteurFenetre()*0.25+50){
+		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30)/2 && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30)/2 && ordonneeSouris() > hauteurFenetre()*0.25+100 && ordonneeSouris() < hauteurFenetre()*0.25+50){
 			profil(1, nomProfil, 0);
 			profil(2, NULL, getGame()->score);
 			*menu = 0;
