@@ -14,24 +14,18 @@ void updateGame(Game* game) {
 	if(game->nbEnemies == 0) {
 		nextLevel();
 	}
-
-	int hasBonusBeenDeleted = 0;
-	int hasBulletBeenDeleted = 0;
-	int hasEnemyBeenDeleted = 0;
 	
 	//Move every bonus
 	Bonus* bufferBonus = game->bonuses;	
 	while(bufferBonus != NULL) {
 		moveLeft(&bufferBonus->hitbox, &bufferBonus->pos, bufferBonus->speed);
-		if(hasBonusBeenDeleted == 0 && checkCollision(game->spaceship.hitbox, bufferBonus->hitbox) == 1) {
+		if(checkCollision(game->spaceship.hitbox, bufferBonus->hitbox) == 1) {
 			activateBonus(game, *bufferBonus);
-			removeBonus(&game->bonuses, &bufferBonus);
-			hasBonusBeenDeleted = 1;
+			bufferBonus->isDead = 1;
 		}
 		//If the bonus is out of screen remove it
-		if(hasBonusBeenDeleted == 0 && isOutOfScreen(bufferBonus->hitbox)) {
-			removeBonus(&game->bonuses, &bufferBonus);
-			hasBonusBeenDeleted = 1;
+		if(isOutOfScreen(bufferBonus->hitbox)) {
+			bufferBonus->isDead = 1;
 		}
 		bufferBonus = bufferBonus->nextBonus;
 	}
@@ -48,54 +42,35 @@ void updateGame(Game* game) {
 			insertQueueBullet(&game->bullets, createBullet(bufferEnemy->pos, bulletSpeed));
 		}
 		
-		if(hasEnemyBeenDeleted == 0 && checkCollision(game->spaceship.hitbox, bufferEnemy->hitbox)) {
+		if(checkCollision(game->spaceship.hitbox, bufferEnemy->hitbox)) {
 			game->spaceship.life -= 40;
 			if(game->spaceship.life <= 0) {
 				endGame();
 			}
-			removeEnemy(&game->enemies, &bufferEnemy);
-			hasEnemyBeenDeleted = 1;
-			game->nbEnemies--;
+			bufferEnemy->isDead = 1;
 		}
 		bufferEnemy = bufferEnemy->nextEnemy;
 	}
 	
-	Bullet* bulletsToDelete[15];
-	int count = 0;
-	
 	Bullet* bufferBullet = game->bullets;
 	while(bufferBullet != NULL) {	
-		//FIXME: If the bullet touched two enemies at the same time, it's deleted two times in a row (which core dump)
-		hasBulletBeenDeleted = 0;
-		hasEnemyBeenDeleted = 0;
-		
-		//FIXME: Ugly hack, this should be improved to check out screen detection
 		//Move every bullet
-		moveUp(&bufferBullet->hitbox, &bufferBullet->pos, bufferBullet->speed);
-		moveRight(&bufferBullet->hitbox, &bufferBullet->pos, bufferBullet->speed);
-		
-		//If the bullet is out of screen remove it
-		if(isOutOfScreen(bufferBullet->hitbox) == 1) {
-			bulletsToDelete[count] = bufferBullet;
-			count++;
-			//removeBullet(&game->bullets, &bufferBullet);
-			hasBulletBeenDeleted = 1;
+		if(moveUp(&bufferBullet->hitbox, &bufferBullet->pos, bufferBullet->speed) == 0) {
+			bufferBullet->isDead = 1;
+		}
+		if(moveRight(&bufferBullet->hitbox, &bufferBullet->pos, bufferBullet->speed) == 0) {
+			bufferBullet->isDead = 1;
 		}
 		
 		//Check collisions between every enemy and the current bullet iteration
 		bufferEnemy = game->enemies;
 		while(bufferEnemy != NULL) {
 			// Check if a bullet and an enemy are colliding, and if the bullet was going left to right
-			if(bufferBullet->speed.speedX > 0 && checkCollision(bufferBullet->hitbox, bufferEnemy->hitbox) == 1) {
+			if(bufferBullet->isDead == 0 && bufferBullet->speed.speedX > 0 && checkCollision(bufferBullet->hitbox, bufferEnemy->hitbox) == 1) {
 				bufferEnemy->life -= game->spaceship.damage;
-				if(hasBulletBeenDeleted == 0) {
-					bulletsToDelete[count] = bufferBullet;
-					count++;
-					//removeBullet(&game->bullets, &bufferBullet);
-					hasBulletBeenDeleted = 1;
-				}
+				bufferBullet->isDead = 1;
 				//If the enemy is dead, remove it
-				if(hasEnemyBeenDeleted == 0 && bufferEnemy->life <= 0) {
+				if(bufferEnemy->life <= 0) {
 					if(getRand(25) == 0) {
 						switch(getRand(5)) {
 							case 0:
@@ -115,9 +90,7 @@ void updateGame(Game* game) {
 						}
 					}
 					game->score += 50;
-					game->nbEnemies--;
-					removeEnemy(&game->enemies, &bufferEnemy);
-					hasEnemyBeenDeleted = 1;
+					bufferEnemy->isDead = 1;
 				}
 			}
 			//Iterate over enemies
@@ -125,17 +98,12 @@ void updateGame(Game* game) {
 		}
 
 		if(bufferBullet->speed.speedX < 0 && checkCollision(bufferBullet->hitbox, game->spaceship.hitbox) == 1) {
+			bufferBullet->isDead = 1;
 			if(game->spaceship.shield > 0) {
 				game->spaceship.shield -= 20;
 			}
 			else {
 				game->spaceship.life -= 20;
-			}
-			if(hasBulletBeenDeleted == 0) {
-				bulletsToDelete[count] = bufferBullet;
-				count++;
-				//removeBullet(&game->bullets, &bufferBullet);
-				hasBulletBeenDeleted = 1;
 			}
 			if(game->spaceship.life <= 0) {
 				endGame();
@@ -146,9 +114,37 @@ void updateGame(Game* game) {
 		bufferBullet = bufferBullet->nextBullet;
 	}
 	
-	for(int i = 0; i < count; i++) {
-		if(bulletsToDelete[i] != NULL) {
-			removeBullet(&game->bullets, &bulletsToDelete[i]);
+	// Remove dead bonuses
+	for (Bonus** current = &game->bonuses; *current; current = &(*current)->nextBonus) {
+		if((*current)->isDead == 1) {
+		  Bonus* next = (*current)->nextBonus;
+		  free(*current);
+		  libereDonneesImageRGB(&(*current)->image);
+		  *current = next;
+		  break;
+		}
+	}
+	
+	// Remove dead bullets
+	for (Bullet** current = &game->bullets; *current; current = &(*current)->nextBullet) {
+		if((*current)->isDead == 1) {
+		  Bullet* next = (*current)->nextBullet;
+		  free(*current);
+		  libereDonneesImageRGB(&(*current)->image);
+		  *current = next;
+		  break;
+		}
+	}
+	
+	// Remove dead enemies
+	for (Enemy** current = &game->enemies; *current; current = &(*current)->nextEnemy) {
+		if((*current)->isDead == 1) {
+		  Enemy* next = (*current)->nextEnemy;
+		  free(*current);
+		  libereDonneesImageRGB(&(*current)->image);
+		  *current = next;
+		  game->nbEnemies--;
+		  break;
 		}
 	}
 }
