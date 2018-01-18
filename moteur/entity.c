@@ -33,7 +33,7 @@ int moveLeft(Hitbox* hitbox, Position* pos, Speed speed) {
 }
 
 int moveRight(Hitbox* hitbox, Position* pos, Speed speed) {
-	if(pos->x < largeurFenetre()) {
+	if(pos->x + hitbox->width <= largeurFenetre()) {
 		pos->x += speed.speedX;
 		hitbox->pos.x = pos->x;
 		return 1;
@@ -57,7 +57,7 @@ int isOutOfScreen(Hitbox hitbox) {
 	Hitbox widow;
 	widow.pos.x = 0;
 	widow.pos.y = 0;
-	widow.width = largeurFenetre();
+	widow.width = largeurFenetre() - hitbox.width;
 	widow.height = hauteurFenetre();	
 	return checkCollision(widow, hitbox) == 0;
 }

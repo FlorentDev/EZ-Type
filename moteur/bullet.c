@@ -3,18 +3,17 @@
 #include "utils.h"
 #include "bullet.h"
 
-Bullet* createBullet(int x, int y, int dir) {
+Bullet* createBullet(Position pos, Speed speed) {
 	Bullet* newBullet = malloc(sizeof(Bullet));
-	newBullet->pos.x = x;
-	newBullet->pos.y = y;
-	newBullet->speed.speedX = dir*15;
-	newBullet->speed.speedY = dir == -1 ? 0 : (getRand(2) == 0 ? 1 : -1) * getRand(4);
-	if(dir == 1) {
+	newBullet->pos = pos;
+	newBullet->speed = speed;
+	//newBullet->speed.speedY = dir == -1 ? 0 : (getRand(2) == 0 ? 1 : -1) * getRand(4);
+	if(speed.speedX > 0) {
 		newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
 	} else {
 		newBullet->image = lisBMPRGB("./Images/red_little_bullet_enemy.bmp");
 	}
-	newBullet->hitbox.pos = newBullet->pos;
+	newBullet->hitbox.pos = pos;
 	newBullet->hitbox.width = newBullet->image->largeurImage;
 	newBullet->hitbox.height = newBullet->image->hauteurImage;
 	newBullet->nextBullet = NULL;
@@ -57,6 +56,7 @@ void removeBullet(Bullet** list, Bullet** maillon) {
 	else {
 		bulletBefore->nextBullet = (*maillon)->nextBullet;
 	}
+	libereDonneesImageRGB(&(*maillon)->image);
 	free(*maillon);
 }
 

@@ -43,4 +43,12 @@ void displayGame(void){
 	couleurCourante(250, 10, 10);
 	rectangle(3, 3, largeurFenetre()/3.0/100.0*game->spaceship.life, 15);
 	couleurCourante(255, 255, 255);
+
+	//Display shield bar
+	if (game->spaceship.shield > 0) {
+		rectangle(2, 18, largeurFenetre()/3.0 + 1, 33);
+		couleurCourante(10, 10, 255);
+		rectangle(3, 19, largeurFenetre()/3.0/100.0*game->spaceship.shield, 31);
+		couleurCourante(255, 255, 255);
+	}
 }

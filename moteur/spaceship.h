@@ -13,7 +13,7 @@ typedef struct {
 	int shield;
 	int life;
 	int damage;
-	int shotSpeed;
+	Speed bulletSpeed;
 	int shotNb;
 	DonneesImageRGB* image;
 } Spaceship;

@@ -2,12 +2,14 @@
 	#include "Sauvegarde/sauvegarde.h"
 	#define SAUVEGARDE_H
 #endif
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "GfxLib/GfxLib.h"
 #include "GfxLib/BmpLib.h"
 #include "moteur/param.h"
 #include "moteur/game.h"
+#include "moteur/utils.h"
 
 static char nomProfil[20];
 static char array_score[20];
@@ -31,15 +33,16 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()/2-130);
 		stringcpy(message, "Quitter");
 		afficheChaine(message, 30, largeurFenetre()/2-tailleChaine(message, 30)/2, hauteurFenetre()/2-180);
-		stringcpy(message, "Leaderboard :");
-		afficheChaine(message, 30, 10, 50 * 6);
 		Score *scores;
 		scores = getScores();
 		int i;
 		for(i=0; i<5; i++){
 			sprintf(message, "%s %d", scores[i].name, scores[i].score);
-			if(scores[i].score!=0)
+			if(scores[i].score!=0) {
 				afficheChaine(message, 30, 10, 50 * (5-i));
+				stringcpy(message, "Leaderboard :");
+				afficheChaine(message, 30, 10, 50 * 6);
+			}
 		}
 	}
 	// Menu option
@@ -277,13 +280,14 @@ void menuClick(int *menu){
 		stringcpy(message, "Continuer");
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) && ordonneeSouris() > hauteurFenetre()*0.6 && ordonneeSouris() < hauteurFenetre()*0.6 + 40){
 			*menu = 0;
-			startGame(1); //terminer la reprise du jeu en fonction du score
+			startGame(1); //commence la reprise du jeu en fonction du score
+			getGame()->score = profil(0, NULL, 0);
+			getGame()->level = pow(getGame()->score / 50 - 4, 1/2);
 		}
 		stringcpy(message, "Nouvelle partie");
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){
 			*menu = 0;
-			startGame(1);
-			getGame()->score = profil(0, NULL, 0); 
+			startGame(1); 
 		}
 	}
 	// Menu profil after game over

@@ -6,6 +6,8 @@
 #include "param.h"
 #include "utils.h"
 
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+
 static int gamestate = 0;
 static Game *game;
 
@@ -27,7 +29,8 @@ Game* initGame() {
 	game->spaceship.shield = 0;
 	game->spaceship.life = 100;
 	game->spaceship.damage = 20;
-	game->spaceship.shotSpeed = 5;
+	game->spaceship.bulletSpeed.speedX = 17.5;
+	game->spaceship.bulletSpeed.speedY = 5;
 	game->spaceship.shotNb = 1;
 	game->spaceship.image = lisBMPRGB("./Images/ship.bmp");
 	game->spaceship.hitbox.pos = game->spaceship.pos;
@@ -73,13 +76,18 @@ void activateBonus(Game* game, Bonus perk) {
 			game->spaceship.life = 100;
 			break;
 		case Shield:
-			game->spaceship.shield = 20;
+			game->spaceship.shield = min(100, game->spaceship.shield + 20);
 			break;
 		case IncreaseShotSpeed:
-			game->spaceship.shotSpeed++;
+			game->spaceship.bulletSpeed.speedX = min(25, game->spaceship.bulletSpeed.speedX + 5);
+			game->spaceship.bulletSpeed.speedY = min(25, game->spaceship.bulletSpeed.speedY + 5);
 			break;
 		case IncreaseShotNb:
-			game->spaceship.shotNb++;
+			game->spaceship.shotNb = min(4, game->spaceship.shotNb + 1);
+			break;
+		case IncreaseDamage:
+			game->spaceship.damage = min(100, game->spaceship.damage + 5);
 			break;
 	}
 }
+

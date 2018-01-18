@@ -3,6 +3,8 @@
 	#include "entity.h"
 #endif
 
+#include <stdio.h>
+#include "utils.h"
 #include "game.h"
 #include "../GfxLib/GfxLib.h"
 #include "../GfxLib/BmpLib.h"
@@ -21,7 +23,10 @@ void smoothKeyboardGame(Game *game) {
 		moveRight(&game->spaceship.hitbox, &game->spaceship.pos, game->spaceship.speed);
 	}
 	if(toucheAppuyee(' ') == 1) {
-		insertQueueBullet(&game->bullets, createBullet(game->spaceship.pos.x + game->spaceship.hitbox.width, game->spaceship.pos.y, 1));
+		for (int i=0; i<game->spaceship.shotNb; i++) {
+			game->spaceship.bulletSpeed.speedY = (getRand(2) == 0 ? 1 : -1) * getRand(3);
+			insertQueueBullet(&game->bullets, createBullet(game->spaceship.pos, game->spaceship.bulletSpeed));
+		}
 	}
 }
 
