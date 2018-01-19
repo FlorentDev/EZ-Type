@@ -18,8 +18,11 @@ typedef struct bonus {
 	struct bonus *nextBonus;
 } Bonus; 
 
+/** Generate and return a bonus with the default values **/
 Bonus* createBonus(int x, int y, BonusType type);
 
+/** Return the last bonus of the linked list **/
 Bonus* getLastBonus(Bonus* list);
 
+/** Insert a bonus 'maillon' at the end of the linked list **/
 void insertQueueBonus(Bonus** list, Bonus* maillon);
