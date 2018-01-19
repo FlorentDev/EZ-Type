@@ -70,7 +70,7 @@ void updateGame(Game* game) {
 				bufferBullet->isDead = 1;
 				//If the enemy is dead, remove it
 				if(bufferEnemy->life <= 0) {
-					if(getRand(75) == 0) {
+					if(getRand(50) == 0) {
 						BonusType bonusType;
 						switch(getRand(5)) {
 							case 0:
@@ -88,10 +88,12 @@ void updateGame(Game* game) {
 							case 4:
 								bonusType = IncreaseDamage;
 								break;
+							default:
+								bonusType = Shield;
+								break;
 						}
 						insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, bonusType));
 					}
-					game->score += 50;
 					bufferEnemy->isDead = 1;
 				}
 			}
@@ -109,6 +111,7 @@ void updateGame(Game* game) {
 			}
 			if(game->spaceship.life <= 0) {
 				endGame();
+				return;
 			}
 		}
 		
@@ -119,34 +122,41 @@ void updateGame(Game* game) {
 	// Remove dead bonuses
 	for (Bonus** current = &game->bonuses; *current; current = &(*current)->nextBonus) {
 		if((*current)->isDead == 1) {
-		  Bonus* next = (*current)->nextBonus;
-		  free(*current);
-		  libereDonneesImageRGB(&(*current)->image);
-		  *current = next;
-		  break;
+			Bonus* next = (*current)->nextBonus;
+			free(*current);
+			libereDonneesImageRGB(&(*current)->image);
+			*current = next;
+			if(*current == NULL) {
+				break;
+			}
 		}
 	}
 	
 	// Remove dead bullets
 	for (Bullet** current = &game->bullets; *current; current = &(*current)->nextBullet) {
 		if((*current)->isDead == 1) {
-		  Bullet* next = (*current)->nextBullet;
-		  free(*current);
-		  libereDonneesImageRGB(&(*current)->image);
-		  *current = next;
-		  break;
+			Bullet* next = (*current)->nextBullet;
+			free(*current);
+			libereDonneesImageRGB(&(*current)->image);
+			*current = next;
+			if(*current == NULL) {
+				break;
+			}
 		}
 	}
 	
 	// Remove dead enemies
 	for (Enemy** current = &game->enemies; *current; current = &(*current)->nextEnemy) {
 		if((*current)->isDead == 1) {
-		  Enemy* next = (*current)->nextEnemy;
-		  free(*current);
-		  libereDonneesImageRGB(&(*current)->image);
-		  *current = next;
-		  game->nbEnemies--;
-		  break;
+			game->score += 50;
+			Enemy* next = (*current)->nextEnemy;
+			free(*current);
+			libereDonneesImageRGB(&(*current)->image);
+			*current = next;
+			game->nbEnemies--;
+			if(*current == NULL) {
+				break;
+			}
 		}
 	}
 }
