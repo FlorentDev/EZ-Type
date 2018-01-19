@@ -6,6 +6,9 @@
 #include "moteur/inputGame.h"
 #include "moteur/displayGame.h"
 #include "moteur/updateGame.h"
+#include "moteurMulti/inputGame.h"
+#include "moteurMulti/displayGame.h"
+#include "moteurMulti/updateGame.h"
 
 void gestionEvenement(EvenementGfx event);
 
@@ -20,11 +23,15 @@ int main(int argc, char *argv[]){
 void gestionEvenement(EvenementGfx event){
 	static bool pleinEcran = false;
 	static int menu = 0;
-	if(menu==0 && gameState()==0) // Prise en charge de la pause
+	if((menu==0 && gameState()==0) && (menu==0 && gameStateMulti()==0)) // Prise en charge de la pause
 		menu = 4;
-	if(gameState()==2) {
+	if(gameState()==2 && gameStateMulti()==0) {
 		menu = 6;
 		gamePause(0);
+	}
+	if(gameStateMulti()==2 && gameState()==0) {
+		menu = 6;
+		gamePauseMulti(0);
 	}
 
 	switch(event){
@@ -37,6 +44,10 @@ void gestionEvenement(EvenementGfx event){
 				smoothKeyboardGame(getGame());
 				updateGame(getGame());
 			}
+			if(gameStateMulti() == 1) {
+				smoothKeyboardGameMulti(getGameMulti());
+				updateGameMulti(getGameMulti());
+			}
 			rafraichisFenetre();
 			break;
 		case Affichage:
@@ -48,6 +59,10 @@ void gestionEvenement(EvenementGfx event){
 			if(gameState() == 1) {
 				demandeTemporisation(20);
 				displayGame();
+			}
+			if(gameStateMulti() == 1) {
+				demandeTemporisation(20);
+				displayGameMulti();
 			}
 			break;
 		case Clavier:
@@ -62,6 +77,8 @@ void gestionEvenement(EvenementGfx event){
 			}
 			if(gameState() == 1)
 				keyboardGame(getGame());
+			if(gameStateMulti() == 1)
+				keyboardGameMulti(getGameMulti());
 			break;
 		case ClavierRelache:
 			break;
