@@ -71,22 +71,25 @@ void updateGame(Game* game) {
 				//If the enemy is dead, remove it
 				if(bufferEnemy->life <= 0) {
 					if(getRand(75) == 0) {
+						BonusType bonusType;
 						switch(getRand(5)) {
 							case 0:
-								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotSpeed));
+								bonusType = IncreaseShotSpeed;
 								break;
 							case 1:
-								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotNb));
+								bonusType = IncreaseShotNb;
 								break;
 							case 2:
-								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, RegenerateLife));
+								bonusType = RegenerateLife;
 								break;
 							case 3:
-								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, Shield));
+								bonusType = Shield;
 								break;
 							case 4:
-								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseDamage));
+								bonusType = IncreaseDamage;
+								break;
 						}
+						insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, bonusType));
 					}
 					game->score += 50;
 					bufferEnemy->isDead = 1;
