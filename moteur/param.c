@@ -116,6 +116,9 @@ int profil(int mode, char *id, int nbEnemy){
 		case 2: // save score
 			if(name[0]=='\0'){
 				score = nbEnemy;
+				if(id != NULL) {
+					stringcpy(name, id);
+				}
 				return 1; // Print profile menu to have a name
 			}
 			else{
