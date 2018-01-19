@@ -296,7 +296,7 @@ void menuClick(int *menu){
 			*menu = 0;
 			startGame(1); //commence la reprise du jeu en fonction du score
 			getGame()->score = profil(0, NULL, 0);
-			getGame()->level = pow(getGame()->score / 50 - 4, 1/2);
+			getGame()->level = sqrt(getGame()->score / 50 - 4) - 1;
 		}
 		stringcpy(message, "Nouvelle partie");
 		if(abscisseSouris() > largeurFenetre()/2 - tailleChaine(message, 30) && abscisseSouris() < largeurFenetre()/2 + tailleChaine(message, 30) && ordonneeSouris() > hauteurFenetre()*0.4 && ordonneeSouris() < hauteurFenetre()*0.4 + 40){

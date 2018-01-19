@@ -3,7 +3,7 @@
 	#define SPACESHIP_H
 #endif
 
-/*
+/**
 * \brief Strucuture d'une sauvegarde de score
 * \var name Nom du profil 
 * \var score Score

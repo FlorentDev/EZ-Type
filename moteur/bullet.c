@@ -8,9 +8,21 @@ Bullet* createBullet(Position pos, Speed speed) {
 	newBullet->pos = pos;
 	newBullet->speed = speed;
 	newBullet->isDead = 0;
-	//newBullet->speed.speedY = dir == -1 ? 0 : (getRand(2) == 0 ? 1 : -1) * getRand(4);
 	if(speed.speedX > 0) {
-		newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
+		switch(getRand(4)) {
+			case 0:
+				newBullet->image = lisBMPRGB("./Images/green_little_bullet.bmp");
+				break;
+			case 1:
+				newBullet->image = lisBMPRGB("./Images/yellow_little_bullet.bmp");
+				break;
+			case 2:
+				newBullet->image = lisBMPRGB("./Images/blue_little_bullet.bmp");
+				break;
+			default:
+				newBullet->image = lisBMPRGB("./Images/red_little_bullet.bmp");
+				break;
+		}
 	} else {
 		newBullet->image = lisBMPRGB("./Images/red_little_bullet_enemy.bmp");
 	}

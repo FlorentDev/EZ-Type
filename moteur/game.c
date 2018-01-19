@@ -15,7 +15,7 @@ static Game *game;
 void startGame(int begin){
 	game = initGame();
 	gamestate = begin;
-	startSound("music/music.mp3");
+	startSound("music/music_doom.mp3");
 	reinitialiserTouches();
 }
 
@@ -69,7 +69,6 @@ void endGame(){
 }
 
 void nextLevel() {
-	//nbEnemy = level² + 4
 	game->level++;
 	game->nbEnemies = game->level * game->level + 4;
 	for(int i = 0; i < game->nbEnemies; i++) {
