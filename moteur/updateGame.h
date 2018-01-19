@@ -3,4 +3,5 @@
 	#include "game.h"
 #endif
 
+/** Update all entities */
 void updateGame(Game* game);

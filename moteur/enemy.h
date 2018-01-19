@@ -20,10 +20,14 @@ typedef struct enemy {
 	struct enemy *nextEnemy; 
 } Enemy;
 
+/** Create and return an enemy with default values */
 Enemy* createEnemy(int x, int y);
 
+/** Return the last enemy in the linked list 'list' */
 Enemy* getLastEnemy(Enemy* list);
 
+/** Insert enemy 'maillon' at the end of the linked list 'list' */
 void insertQueueEnemy(Enemy** list, Enemy* maillon);
 
+/** Update enemie's poisition */
 void moveEnemy(Enemy* enemy);
