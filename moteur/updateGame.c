@@ -70,7 +70,7 @@ void updateGame(Game* game) {
 				bufferBullet->isDead = 1;
 				//If the enemy is dead, remove it
 				if(bufferEnemy->life <= 0) {
-					if(getRand(25) == 0) {
+					if(getRand(75) == 0) {
 						switch(getRand(5)) {
 							case 0:
 								insertQueueBonus(&game->bonuses, createBonus(bufferEnemy->pos.x, bufferEnemy->pos.y, IncreaseShotSpeed));
@@ -114,7 +114,7 @@ void updateGame(Game* game) {
 	}
 	
 	// Remove dead bonuses
-	for (Bonus** current = &game->bonuses; *current; current = &(*current)->nextBonus) {
+	for (Bonus** current = &game->bonuses; *current != NULL; current = &(*current)->nextBonus) {
 		if((*current)->isDead == 1) {
 		  Bonus* next = (*current)->nextBonus;
 		  free(*current);

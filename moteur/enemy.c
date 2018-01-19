@@ -12,7 +12,7 @@ Enemy* createEnemy(int x, int y) {
 	newEnemy->speed.speedX = 1.5;
 	newEnemy->speed.speedY = 2;	
 	newEnemy->dir.dirX = 1;
-	newEnemy->dir.dirY = 1;
+	newEnemy->dir.dirY = getRand(2) == 0 ? 1 : -1;
 	newEnemy->life = 100;
 	char imgName[25];
 	sprintf(imgName, "./Images/enemy_%d.bmp", getRand(3)+1);
