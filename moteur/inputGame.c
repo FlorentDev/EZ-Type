@@ -23,9 +23,12 @@ void smoothKeyboardGame(Game *game) {
 		moveRight(&game->spaceship.hitbox, &game->spaceship.pos, game->spaceship.speed);
 	}
 	if(toucheAppuyee(' ') == 1) {
-		for (int i=0; i<game->spaceship.shotNb; i++) {
+		for(int i=0; i<game->spaceship.shotNb; i++) {
 			game->spaceship.bulletSpeed.speedY = (getRand(2) == 0 ? 1 : -1) * getRand(3);
-			insertQueueBullet(&game->bullets, createBullet(game->spaceship.pos, game->spaceship.bulletSpeed));
+			Position bulletPos;
+			bulletPos.x = game->spaceship.pos.x + game->spaceship.hitbox.width;
+			bulletPos.y = game->spaceship.pos.y + game->spaceship.hitbox.height/2;
+			insertQueueBullet(&game->bullets, createBullet(bulletPos, game->spaceship.bulletSpeed));
 		}
 	}
 }
