@@ -114,7 +114,7 @@ void updateGame(Game* game) {
 	}
 	
 	// Remove dead bonuses
-	for (Bonus** current = &game->bonuses; *current != NULL; current = &(*current)->nextBonus) {
+	for (Bonus** current = &game->bonuses; *current; current = &(*current)->nextBonus) {
 		if((*current)->isDead == 1) {
 		  Bonus* next = (*current)->nextBonus;
 		  free(*current);
