@@ -1,15 +1,30 @@
+/**
+ * \file background.c
+ * \brief Generate the star background
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdlib.h>
 #include "../GfxLib/GfxLib.h"
 #include "utils.h"
 
+/**
+ * \struct Star
+ * \brief Chained list whith the position of one star
+**/
 typedef struct star{
-	int x;
-	int y;
-	struct star *next;
+	int x; /*!< The position on x axe */
+	int y; /*!< The position on y axe */
+	struct star *next; /*!< The next star */
 } Star;
 
 static Star *head = NULL;
 
+/**
+ * \fn void background(void)
+ * \brief Generate a background with points, simulating stars and display it
+**/
 void background(void){
 	if(getRand(2) == 0){
 		if(head==NULL){
@@ -43,7 +58,11 @@ void background(void){
 	}
 }
 
-void freeBackground() {
+/**
+ * \fn void freeBackground()
+ * \brief Free all the pointers generated for the background (use on the end of the game)
+**/
+void freeBackground(void){
     Star *current = head;
     Star *next;
     while(current != NULL) {

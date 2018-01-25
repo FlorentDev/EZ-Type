@@ -1,3 +1,10 @@
+/**
+ * \file updateGame.c
+ * \brief Main file of the program who contain the principal instance of GfxLib
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #ifndef ENTITY_H
 	#define ENTITY_H
 	#include "entity.h"
@@ -9,6 +16,12 @@
 #include "utils.h"
 #include "game.h"
 
+/**
+ * \fn void updateGame(Game* game)
+ * \brief Update all entities
+ *
+ * \param game The current game structure
+**/
 void updateGame(Game* game) {
 	// If there is no enemy, go to the next level
 	if(game->nbEnemies == 0) {

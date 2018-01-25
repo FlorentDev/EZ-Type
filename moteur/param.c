@@ -1,7 +1,18 @@
+/**
+ * \file param.c
+ * \brief Save all the param for the game
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdlib.h>
 #include <stdio.h>
 #include "../Sauvegarde/sauvegarde.h"
 
+/**
+ * \enum spaceShipSkin
+ * \brief All the different spaceship possibility
+**/
 typedef enum {Defaut, Terminator, MichelATord, FoconMillenium, Observer}
 	spaceShipSkin;
 
@@ -9,6 +20,13 @@ static int son = 1;
 
 void stringcpy(char *strA, char *strB);
 
+/**
+ * \fn char *vaisseau(int)
+ * \brief Change spaceship's skin
+ *
+ * \param mode -1: take the spaceship which is before in the enum, 1: take the spaceship which is after in the enum, 0: return the current spaceship
+ * \return Retrun the name of the current spaceship if asked, return "" otherwise
+**/
 char *vaisseau(int number){
 	static spaceShipSkin vaisseau = Defaut;
 	if(number==1){
@@ -71,10 +89,20 @@ char *vaisseau(int number){
 	return "";
 }
 
+/**
+ * \fn int sound(void)
+ * \brief Give the sound state
+ *
+ * \return 1 if the sound is enabled, 0 otherwise
+**/
 int sound(void){
 	return son;
 }
 
+/**
+ * \fn void changeSound(void)
+ * \brief Change the sound state
+**/
 void changeSound(void){
 	if(son)
 		son=0;
@@ -82,6 +110,13 @@ void changeSound(void){
 		son=1;
 }
 
+/**
+ * \fn void stringcpy(char *strA, char *strB)
+ * \brief Copy a string to another (exactly the same of strcpy in <string.h>)
+ *
+ * \param strA String which receive data
+ * \param strB String which will be copy
+**/
 void stringcpy(char *strA, char strB[255]){
 	int i = 0;
 	while(strB[i]!='\0'){
@@ -91,6 +126,15 @@ void stringcpy(char *strA, char strB[255]){
 	strA[i]='\0';
 }
 
+/**
+ * \fn int profil(int mode, char *id, int nbEnemy)
+ * \brief Get or save the profil info (score and name)
+ *
+ * \param mode 1: Return 0 if no profile has been set, score otherwise / 2: Save score and return 1 if no profile was set, 0 otherwise / 3: Return score
+ * \param id Take the name of the profil if necessary
+ * \nbEnemy Take the score if necessary
+ * \return Depending on mode, whatch the mode variable
+**/
 int profil(int mode, char *id, int nbEnemy){
 	static char name[20] = "";
 	static int score = 0;

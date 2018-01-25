@@ -1,6 +1,22 @@
+/**
+ * \file bonus.c
+ * \brief Take care of all the different bonus
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdlib.h>
 #include "bonus.h"
 
+/**
+ * \fn Bonus* createBonus(int x, int y, BonusType type)
+ * \brief Generate a bonus
+ *
+ * \param x The position on the x axe
+ * \param y The position on the y axe
+ * \param type The type of bonus which should be create
+ * \return The bonus once generate with is default value
+**/
 Bonus* createBonus(int x, int y, BonusType type) {
 	Bonus* newBonus = malloc(sizeof(Bonus));
 	newBonus->isDead = 0;
@@ -33,8 +49,13 @@ Bonus* createBonus(int x, int y, BonusType type) {
 	return newBonus;
 }
 
-
-// Return the last bonus from the list
+/**
+ * \fn Bonus* getLastBonus(Bonus* list)
+ * \brief Get the last bonus of the linked list
+ *
+ * \param list List to analyse
+ * \return Return the last bonus
+**/
 Bonus* getLastBonus(Bonus* list) {
 	Bonus* buffer = list;
 	while(buffer->nextBonus != NULL) {
@@ -43,7 +64,13 @@ Bonus* getLastBonus(Bonus* list) {
 	return buffer;
 }
 
-// Insert the bonus in the list
+/**
+ * \fn void insertQueueBonus(Bonus** list, Bonus* maillon)
+ * \brief Insert a bonus at the end of the linked list
+ *
+ * \param list List in which one the bonus should be insert
+ * \param maillon Bonus to insert
+**/
 void insertQueueBonus(Bonus** list, Bonus* maillon) {
 	if(*list == NULL) {
 		*list = maillon;

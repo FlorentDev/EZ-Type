@@ -1,9 +1,20 @@
+/**
+ * \file displayGame.c
+ * \brief Make all the display of the game
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdio.h>
 #include "../GfxLib/GfxLib.h"
 #include "../GfxLib/BmpLib.h"
 #include "game.h"
 #include "background.h"
 
+/**
+ * \fn void displayGame(void)
+ * \brief Display all elements relative to game
+**/
 void displayGame(void){ 
 	background();
 	Game *game = getGame();

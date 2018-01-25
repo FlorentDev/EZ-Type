@@ -1,3 +1,10 @@
+/**
+ * \file game.c
+ * \brief Give all the game event
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdlib.h>
 #include <stdio.h>
 #include "../GfxLib/GfxLib.h"
@@ -12,6 +19,12 @@
 static int gamestate = 0;
 static Game *game;
 
+/**
+ * \fn void startGame(int begin)
+ * \brief Start a game and initialize the game state to 'begin' (0: game not started, 1: game starteds)
+ *
+ * \param begin Set the game state  (0: game not started, 1: game starteds)
+**/
 void startGame(int begin){
 	game = initGame();
 	gamestate = begin;
@@ -19,6 +32,12 @@ void startGame(int begin){
 	reinitialiserTouches();
 }
 
+/**
+ * \fn Game* initGame(void)
+ * \brief Initialize game with default values
+ *
+ * \return Return a Game structure correctly initiate
+**/
 Game* initGame() {
 	Game* game = malloc(sizeof(Game));
 	game->score = 0;
@@ -47,19 +66,41 @@ Game* initGame() {
 	return game;
 }
 
+/**
+ * \fn void gamePause(int pause)
+ * \brief Pause the game
+ *
+ * \param pause The state whiche the game should take, traditionnaly 1 play, 2 pause
+**/
 void gamePause(int pause){
 	gamestate = pause;
 	togglePause();
 }
 
+/*
+ * \fn int gameState(void)
+ * \brief Get the game state
+ *
+ * \return 1: game launch, 2: game pause, 0: game off
+**/
 int gameState(){
 	return gamestate;
 }
 
+/**
+ * \fn Game* getGame(void)
+ * \brief Get the structure for the current game
+ *
+ * \return The structure of the current game
+**/
 Game* getGame(){
 	return game;
 }
 
+/**
+ * \fn void endGame(void)
+ * \brief End the game
+**/
 void endGame(){
 	freeBackground();
 	profil(2, NULL, getGame()->score);
@@ -68,6 +109,10 @@ void endGame(){
 	stopSound();
 }
 
+/**
+ * \fn void nextLevel()
+ * \brief Generate enemies depending on the current level
+**/
 void nextLevel() {
 	game->level++;
 	game->nbEnemies = game->level * game->level + 4;
@@ -76,6 +121,13 @@ void nextLevel() {
 	}
 }
 
+/**
+ * \fn void activateBonus(Game* game, Bonus perk)
+ * \brief Activate a bonus
+ *
+ * \param game The structure of the current game
+ * \param perk the bonus to activate
+**/
 void activateBonus(Game* game, Bonus perk) {
 	switch(perk.type) {
 		case RegenerateLife:

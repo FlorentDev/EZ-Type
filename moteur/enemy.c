@@ -1,9 +1,24 @@
+/**
+ * \file enemy.c
+ * \brief Contain all the event about the enemy
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdlib.h>
 #include <stdio.h>
 #include "../GfxLib/BmpLib.h"
 #include "enemy.h"
 #include "utils.h"
 
+/**
+ * \fn Enemy* createEnemy(int x, int y)
+ * \brief Create an enemy with default values
+ *
+ * \param x Position on x axe
+ * \param y Position on y axe
+ * \return The enemy once created
+**/
 Enemy* createEnemy(int x, int y) {
 	Enemy* newEnemy = malloc(sizeof(Enemy));
 	newEnemy->isDead = 0;
@@ -35,7 +50,13 @@ Enemy* createEnemy(int x, int y) {
 	return newEnemy;
 }
 
-// Return the last enemy of the list
+/**
+ * \fn Enemy* getLastEnemy(Enemy* list)
+ * Get the last enemy in the linked list
+ *
+ * \param list The list to analyse
+ * \return The last enemy of the list
+**/
 Enemy* getLastEnemy(Enemy* list) {
 	Enemy* buffer = list;
 	while(buffer->nextEnemy != NULL) {
@@ -44,7 +65,13 @@ Enemy* getLastEnemy(Enemy* list) {
 	return buffer;
 }
 
-// Insert enemy in the list
+/**
+ * \fn void insertQueueEnemy(Enemy** list, Enemy* maillon)
+ * \brief Insert an enemy at the end of the linked list
+ *
+ * \param list List in which one you want to insert the enemy
+ * \param maillon Enemy to insert
+**/
 void insertQueueEnemy(Enemy** list, Enemy* maillon) {
 	if(*list == NULL) {
 		*list = maillon;
@@ -53,6 +80,12 @@ void insertQueueEnemy(Enemy** list, Enemy* maillon) {
 	}
 }
 
+/**
+ * \fn void moveEnemy(Enemy* enemy)
+ * \brief Update enemie's poisition
+ *
+ * \param enemy Enemy which should be update
+**/
 void moveEnemy(Enemy* enem) {
 	switch(enem->moveType) {
 		case Vertical:
