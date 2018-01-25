@@ -1,3 +1,11 @@
+/**
+ * \file menu.c
+ * \brief Contain all the menu action and display
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
+
 #ifndef SAUVEGARDE_H
 	#include "Sauvegarde/sauvegarde.h"
 	#define SAUVEGARDE_H
@@ -15,6 +23,12 @@ static char nomProfil[20];
 static char array_score[20];
 static int newGame = 0;
 
+/**
+ * \fn void menuPrint(int menu)
+ * \brief Contain all the display of all the menu
+ *
+ * \param menu The type of menu: 1: Principal menu, 2: Option menu, 3: Profil menu, 4: Pause menu, 5: Profil menu during pause, 6: Game over menu, 7: New game menu, menu = 8: Profil menu after the game over menu
+**/
 void menuPrint(int menu){
 	char message[255];
 	// Menu principal
@@ -173,7 +187,13 @@ void menuPrint(int menu){
 		afficheChaine(message, 30, largeurFenetre()/2+25, hauteurFenetre()*0.25+50);
 	}
 }
-;
+
+/**
+ * \fn void menuClick(int *menu)
+ * \brief Contain all the mouse action of all the menu
+ *
+ * \param menu The type of menu which can also change: 1: Principal menu, 2: Option menu, 3: Profil menu, 4: Pause menu, 5: Profil menu during pause, 6: Game over menu, 7: New game menu, menu = 8: Profil menu after the game over menu
+**/
 void menuClick(int *menu){
 	char message[255];
 	// Menu principal
@@ -331,6 +351,12 @@ void menuClick(int *menu){
 	// Si on a le temps
 }
 
+/**
+ * \fn void saisieClavier(char caractereClavier)
+ * \brief Save the keyboard to the nomProfil global variable
+ *
+ * \param caractereClavier It is the keyboard caracter to input
+**/
 void saisieClavier(char caractereClavier){
 	int i = 0;
 	while(nomProfil[i] != '\0'){

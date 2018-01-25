@@ -1,3 +1,10 @@
+/**
+ * \file EZ-Type.c
+ * \brief Main file of the program who contain the principal instance of GfxLib
+ * \author EZ-Type group: Thomas DELPY, Aymeric FAVARD, David CECCARELLI, Florent SALOU
+ * \version Final
+ * \date January 2018
+**/
 #include <stdlib.h>
 #include <time.h>
 #include "GfxLib/GfxLib.h"
@@ -9,6 +16,14 @@
 
 void gestionEvenement(EvenementGfx event);
 
+/**
+ * \fn int main(int argc, char *argv[])
+ * \brief Main function who initialise Gfx
+ *
+ * \param argc Default main param, number of param on the call of the program
+ * \param argv Default main param, all the string param on the call of the program
+ * \return 0 to say that the program correctly close
+**/
 int main(int argc, char *argv[]){
 	srand(time(NULL));
 	initialiseGfx(argc, argv);
@@ -17,6 +32,12 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
+/**
+ * \fn void gestionEvenement(EvenementGfx event)
+ * \brief Main Gfx function which is call for any graphical action
+ *
+ * \param event the type of event which should be analysed
+**/
 void gestionEvenement(EvenementGfx event){
 	static bool pleinEcran = false;
 	static int menu = 0;
