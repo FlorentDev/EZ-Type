@@ -1,1 +1,12 @@
+url: https://florentdev.github.io/EZ-Type/
+name: EZ-Type
+timezone: Europe/Paris
+
+title : EZ-Type
+author :
+  name : FlorentDev
+
+JB :
+  version : v1.0_mac
+
 theme: jekyll-theme-hacker
