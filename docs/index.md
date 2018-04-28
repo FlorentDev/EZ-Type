@@ -6,9 +6,10 @@ Carefull, the actual release is only for Mac user, but linux user can download t
 
 ### How to install
 
-For Mac user, don't worry. Simply download the release and enjoy.
+For Mac user, don't worry. Simply download the release [here](https://github.com/FlorentDev/EZ-Type/releases) and enjoy.
 
-For Linux user, it's a little bit harder. Open a terminal in the folder where you download the source, and enter this command (wait the end of each one before going to the next line):
+For Linux user, it's a little bit harder.
+Download the source [here](site.github.zip_url) and open a terminal in the folder where you download the source, and enter this command (wait the end of each one before going to the next line):
 
 ```markdown
 make deepclean
