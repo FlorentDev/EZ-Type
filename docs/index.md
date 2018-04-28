@@ -1,8 +1,8 @@
-## Welcome to GitHub Pages
+## EZ-Type
 
-You can use the [editor on GitHub](https://github.com/FlorentDev/EZ-Type/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+EZ-Type is a algorithmic school project. In group of 5, we need to realise a retro game with our new skill in C language. In our team, we decided to do a remake of R-Type, and here is our final version.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Carefull, the actual release is only for Mac user, but linux user can download the source and compile them.
 
 ### Markdown
 
