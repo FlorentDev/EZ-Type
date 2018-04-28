@@ -31,9 +31,9 @@ For Windows user, do it on your own, you need to recompile the source, but we do
 ### Creators
 
 The contributor are:
- - Aymeric [Link](url)
- - David
+ - [Aymeric](https://github.com/Aym83)
+ - [David](https://github.com/Shadorc)
  - Thomas
- - Florent
+ - [Florent](https://github.com/FlorentDev)
  
-Thank's for us
+Thank's for us !!!
