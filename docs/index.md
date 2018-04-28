@@ -38,3 +38,5 @@ The contributor are:
  - [Florent](https://github.com/FlorentDev)
  
 Thank's for us !!!
+
+For a excellent description of the source code, visit [this wonderfull link](./code)
