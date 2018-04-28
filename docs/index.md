@@ -4,34 +4,36 @@ EZ-Type is a algorithmic school project. In group of 5, we need to realise a ret
 
 Carefull, the actual release is only for Mac user, but linux user can download the source and compile them.
 
-### Markdown
+### How to install
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+For Mac user, don't worry. Simply download the release and enjoy.
+
+For Linux user, it's a little bit harder. Open a terminal in the folder where you download the source, and enter this command (wait the end of each one before going to the next line):
 
 ```markdown
-Syntax highlighted code block
+make deepclean
 
-# Header 1
-## Header 2
-### Header 3
+make
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+rm -R docs GfxLib moteur Sauvegarde
+make clean
+rm *.c *.h
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+and to execute:
 
-### Jekyll Themes
+```markdown
+./EZ-Type
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/FlorentDev/EZ-Type/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+For Windows user, do it on your own, you need to recompile the source, but we don't give tuto
 
-### Support or Contact
+### Creators
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+The contributor are:
+ - Aymeric [Link](url)
+ - David
+ - Thomas
+ - Florent
+ 
+Thank's for us
